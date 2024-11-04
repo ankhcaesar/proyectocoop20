@@ -1,0 +1,26 @@
+.boton {
+    width: 250px;
+    padding: 5px 10px;
+    border-style: solid;
+    border-width: 0.5px;
+    border-color: rgba(165, 165, 165, 0.8);
+    border-radius: 7px;
+    font-size: 20px;
+    color: rgb(255, 255, 255);
+    background-color: var(--ColorPrincipal);
+    box-shadow: 2px 3px 8px 1px var(--boxshadowboton), inset 2px 3px 8px 1px var(--boxshadowbotoninset);
+    cursor: pointer;
+
+    &:hover {
+        box-shadow: 2px 3px 7px 1px var(--boxshadowboton), inset 2px 3px 8px 1px var(--boxshadowbotonHover);
+
+    }
+
+    &:active {
+        box-shadow: inset 2px 3px 8px 1px var(--boxshadowboton);
+    }
+
+
+
+
+}

@@ -5,7 +5,7 @@ import E404 from "./src/pages/404/Index"
 import CarritoCompras from "./src/pages/CarritoCompras/Index"
 import Historial from "./src/pages/Historial/Index"
 import MenuCompras from "./src/pages/MenuCompras/Index"
-import NvoUsr from "./src/pages/NvoUsr/Index"
+
 
 
 function AppRoute() {
@@ -18,8 +18,6 @@ function AppRoute() {
                     <Route path="/CarritoCompras" element={<CarritoCompras />} />
                     <Route path="/Historial" element={<Historial />} />
                     <Route path="/MenuCompras" element={<MenuCompras />    } />
-                    <Route path="/NuevoUsuario" element={<NvoUsr />} />
-                   
                 </Route>
             </Routes>
         </BrowserRouter>
