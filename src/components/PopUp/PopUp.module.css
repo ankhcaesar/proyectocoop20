@@ -73,14 +73,24 @@
 }
 
 .formularioNuevoUsuario {
+    width: 90%;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    margin: 0 auto;
+    align-items: center;
     gap: 5px;
-    width: 90%;
+}
+
+label{
+    align-self: flex-start;
+    margin-left: 15px;
 }
 
 .botton {
+    width: 90%;
     align-self: center;
     margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }

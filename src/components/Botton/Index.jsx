@@ -4,9 +4,11 @@ function Botton(props) {
     return (
 
         <button
-            className={styles.boton}
+            className={styles.boton} 
+            style={{width:`${props.medida}`}}
             type={props.type}
             onClick={props.onClick}
+
         >{props.label}
         </button>
     )

@@ -1,5 +1,5 @@
 import styles from "./Inicio.module.css"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import logo from "/Img/logo.svg"
 import InputForm from "../../components/InputForm/Index"
 import Botton from "../../components/Botton/Index"
@@ -21,7 +21,7 @@ function Inicio() {
     } = useContext(GlobalContext)
 
     const navigate = useNavigate()
-    
+
     const manejarEnvio = async (e) => {
         e.preventDefault()
         try {
@@ -69,9 +69,16 @@ function Inicio() {
                         />
                     </div>
                 </form>
-                <div className={styles.links}>
-                    <Link to="/NuevoUsuario" onClick={() => setPnvoUsrOlvClv("NuevoUsuario")}> Nuevo usuario
-                    </Link>
+                <div className={styles.nvoUsr}>
+                    <p
+                        onClick={() => setPopUp({
+                            show: true,
+                            type: "att",
+                            message: "Nuevo usuario",
+                            from: "NVOUSR",
+                            zeIndex:"99"
+                        })}> Nuevo usuario
+                    </p>
                 </div>
             </div>
             {popUp.show && <PopUp message={popUp.message} type={popUp.type} zeIndex={popUp.zeIndex} from={popUp.from} />}

@@ -6,6 +6,7 @@ import InputForm from "../InputForm/Index"
 import Botton from "../Botton/Index"
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext"
+import { supabase } from "../../db/supabaseClient"
 
 function PopUp({ type, message, zeIndex, from }) {
     const {
@@ -15,8 +16,6 @@ function PopUp({ type, message, zeIndex, from }) {
         limpiarPopUp,
 
         limpiarInput,
-
-
 
     } = useContext(GlobalContext)
 
@@ -45,17 +44,36 @@ function PopUp({ type, message, zeIndex, from }) {
         cambiaricono(type)
     }, [])
 
-    function manejarenvio(e, origen) {
+
+
+    function manejarenvio(e) {
         e.preventDefault();
 
-        if (origen === "nvousr") {
-            
+        if (from === "NVOUSR") {
 
+            const crearNuevoUsuario = async (email) => {
+                try {
+                    const { data, error } = await supabase.auth.signUp({
+                        email: email,
+                        password: '123456'
 
+                    })
+
+                    if (error) {
+                        console.error(error)
+                        // Manejar el error de forma más específica, por ejemplo, mostrar un mensaje al usuario
+                    } else {
+                        console.log('Usuario creado exitosamente:', user)
+                    }
+                } catch (error) {
+                    console.error('Error inesperado:', error)
+                }
+            }
+
+            crearNuevoUsuario(email);
 
         }
     }
-
 
 
     return (
@@ -67,12 +85,13 @@ function PopUp({ type, message, zeIndex, from }) {
                     <span className={styles.loader}></span>
                 </div>
             }
-            {from === "nvousr" &&
+            {from === "NVOUSR" &&
                 <div className={styles.overlay}>
                     <div className={styles.PopUpContainer} style={{ zIndex: `${zeIndex}` }}>
                         <form
                             className={styles.formularioNuevoUsuario}
-                            onSubmit={manejarenvio("nvousr")}
+                            onSubmit={manejarenvio}
+
                         >
                             <label>Nombre del Usuario</label>
                             <InputForm
@@ -81,7 +100,7 @@ function PopUp({ type, message, zeIndex, from }) {
                                 type="text"
                                 value={nombreUsuario}
                                 updatevalue={setNombreUsuario}
-                                required={true}
+                                required={false}
                             />
 
                             <label>Email</label>
@@ -98,15 +117,19 @@ function PopUp({ type, message, zeIndex, from }) {
                                     name="botonEnvio"
                                     label="Registrar"
                                     type="submit"
+                                    medida="40%"
+                                />
+                                <Botton
+                                    name="botonLimpiar"
+                                    label="Limpiar"
+                                    type="button"
+                                    medida="40%"
+                                    onClick={limpiarInput}
                                 />
                             </div>
                         </form>
-
-
                     </div>
-
                 </div>
-
             }
 
 
