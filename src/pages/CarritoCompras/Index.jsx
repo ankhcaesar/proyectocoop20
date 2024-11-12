@@ -1,9 +1,14 @@
 import styles from "./CarritoCompras.module.css"
-function CarritoCompras (){
-    return(
+import Header from "../../components/Header/Index"
+import Protegido from "../../context/Protegido"
+
+function CarritoCompras() {
+
+
+    return (
         <>
-        
+            <Header titulo="Carrito de compras" />
         </>
     )
 }
-export default CarritoCompras
+export default Protegido(CarritoCompras)

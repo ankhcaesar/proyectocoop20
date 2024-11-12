@@ -1,0 +1,58 @@
+.menuContainer {
+    position: relative;
+}
+
+.botonMenu {
+    background-color: var(--ColorPrincipal);
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.menu{
+    position: absolute;
+    width: 150px;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.menuContainer:hover .menu,
+.menu:hover, button:hover {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.menuItemBoton{
+    display: block;
+    width: 100%;
+    padding: 12px 16px;
+    color: #c21a1a;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: transparent;
+    border: none;
+    transition: background-color 0.2s;
+
+}
+.menuItem{
+    display: block;
+    text-align: center;
+    padding: 8px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.menuItem:hover , .menuItemBoton:hover{
+    background-color: #f1f1f1;
+}

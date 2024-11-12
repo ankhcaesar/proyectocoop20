@@ -28,9 +28,19 @@
     color: var(--ColorPrincipal);
 }
 
+.titulo {
+    text-align: center;
+}
+
+.titulo h4 {
+    font-size: 20px;
+    margin: 10px;
+    color: black;
+}
+
 .containerFormulario {
     width: 300px;
-    margin-top: 10px;
+    margin-top: 25px;
 }
 
 .formulario {
@@ -42,11 +52,11 @@
         align-self: flex-start;
         font-size: 18px;
         font-weight: bold;
-        margin-top: 20px;
+        margin: 10px 0px 2px 15px;
     }
 
-    & .botton {
-        margin-top: 20px;
+    & .boton {
+        margin-top: 70px;
     }
 }
 

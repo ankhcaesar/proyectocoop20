@@ -1,40 +1,56 @@
 import styles from "./Inicio.module.css"
-import { useNavigate } from "react-router-dom"
 import logo from "/Img/logo.svg"
 import InputForm from "../../components/InputForm/Index"
 import Botton from "../../components/Botton/Index"
-import PopUp from "../../components/PopUp/Index"
 import { supabase } from "../../db/supabaseClient"
-import { useContext } from "react"
+import { useContext, useEffect  } from "react"
 import { GlobalContext } from "../../context/GlobalContext"
 
 
 function Inicio() {
     const {
-        popUp, setPopUp,
+        setPopUp,
         limpiarPopUp,
 
-        limpiarInput,
+        setCargador,
 
-        email, setEmail
+        email, setEmail,
 
-    } = useContext(GlobalContext)
+        estaActivo,
+        navigation
 
-    const navigate = useNavigate()
+    } = useContext(GlobalContext);
 
+
+    /** manejar envio */
     const manejarEnvio = async (e) => {
         e.preventDefault()
-        try {
-            const result = await supabase.auth.signInWithOtp({
-                email: email
+
+
+        /** inicio de sesion y/o registro */
+        setCargador({ show: true })
+        const { error } = await supabase.auth.signInWithOtp({ email })
+        if (error) {
+            alert(error.error_description || error.message)
+        } else {
+            setPopUp({
+                show: true,
+                type: "att",
+                message: `revisa tu email: ${email} para continuar`,
+                from: "MSJ",
+                zeIndex: "98",
+                duration: "5s"
             });
-        } catch (error) {
-            console.error(error)
+            setTimeout(() => {
+                limpiarPopUp();
+            }, 5000);
         }
+        setCargador({ show: false })
+        /** inicio de sesion y / o registro */
     }
+    /** manejar envio */
 
-
-
+    
     return (
         <section className={styles.containerPrincipal}>
             <div className={styles.containerLogo}>
@@ -69,21 +85,11 @@ function Inicio() {
                         />
                     </div>
                 </form>
-                <div className={styles.nvoUsr}>
-                    <p
-                        onClick={() => setPopUp({
-                            show: true,
-                            type: "att",
-                            message: "Nuevo usuario",
-                            from: "NVOUSR",
-                            zeIndex:"99"
-                        })}> Nuevo usuario
-                    </p>
-                </div>
             </div>
-            {popUp.show && <PopUp message={popUp.message} type={popUp.type} zeIndex={popUp.zeIndex} from={popUp.from} />}
         </section>
     )
 }
+
+
 
 export default Inicio

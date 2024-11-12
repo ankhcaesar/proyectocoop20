@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalContext"
 import { supabase } from "../../db/supabaseClient"
 
-function PopUp({ type, message, zeIndex, from }) {
+function PopUp({ type, message, zeIndex, from, duration }) {
     const {
         nombreUsuario, setNombreUsuario,
         email, setEmail,
@@ -43,6 +43,10 @@ function PopUp({ type, message, zeIndex, from }) {
         }
         cambiaricono(type)
     }, [])
+    /**manejo del icono */
+
+
+
 
 
 
@@ -51,26 +55,9 @@ function PopUp({ type, message, zeIndex, from }) {
 
         if (from === "NVOUSR") {
 
-            const crearNuevoUsuario = async (email) => {
-                try {
-                    const { data, error } = await supabase.auth.signUp({
-                        email: email,
-                        password: '123456'
 
-                    })
+            <p>Nuevo usuario</p>
 
-                    if (error) {
-                        console.error(error)
-                        // Manejar el error de forma más específica, por ejemplo, mostrar un mensaje al usuario
-                    } else {
-                        console.log('Usuario creado exitosamente:', user)
-                    }
-                } catch (error) {
-                    console.error('Error inesperado:', error)
-                }
-            }
-
-            crearNuevoUsuario(email);
 
         }
     }
@@ -82,7 +69,7 @@ function PopUp({ type, message, zeIndex, from }) {
                 <div className={styles.PopUpContainer} style={{ zIndex: `${zeIndex}` }}>
                     <img className={styles.icono} src={icon} alt={`icono de ${type}`} />
                     <p className={styles.mensaje}>{message}</p>
-                    <span className={styles.loader}></span>
+                    <span className={styles.loader} style={{ "--anim-duration": '5s' }}></span>
                 </div>
             }
             {from === "NVOUSR" &&

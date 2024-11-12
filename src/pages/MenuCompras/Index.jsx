@@ -1,13 +1,13 @@
 import styles from "./MenuCompras.module.css"
-function MenuCompras() {
+import Header from "../../components/Header/Index"
+import Protegido from "../../context/Protegido"
 
+function MenuCompras() {
 
     return (
         <>
-            
-            
-            <p>menucompras</p>
+            <Header titulo="Menu de compras" />
         </>
     )
 }
-export default MenuCompras
+export default Protegido(MenuCompras)
