@@ -7,7 +7,7 @@ import Protegido from "../../context/Protegido"
 function NuevoUsr() {
     return (
         <>
-            <h1>nuevo usuario Activo</h1>
+            <h1>nuevo usuario Activo, aqui vamos a ingresar el usuario y curso</h1>
         </>
     )
 }
