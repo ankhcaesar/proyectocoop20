@@ -7,16 +7,15 @@ function InputForm(props) {
     }
 
     return (
-        <>
-            <input
-                className={styles.form_text}
-                placeholder={props.placeholder}
-                value={props.value}
-                type={props.type}
-                required={props.required}
-                onChange={manejarCambio}
-            />
-        </>
+        <input
+            className={styles.form_text}
+            placeholder={props.placeholder}
+            value={props.value}
+            type={props.type}
+            required={props.required}
+            readOnly={props.readOnly}
+            onChange={manejarCambio}
+        />
     )
 }
 export default InputForm

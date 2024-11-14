@@ -9,7 +9,6 @@ import { GlobalContext } from '../../context/GlobalContext';
 function Menu() {
     const [isOpen, setIsOpen] = useState(false);
     const { cerrarSesion } = useContext(GlobalContext);
-
     const salir = () => {
         cerrarSesion();
     };

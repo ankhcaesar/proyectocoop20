@@ -10,12 +10,12 @@ function GlobalContextProvider({ children }) {
 
     /**Variables */
     const [email, setEmail] = useState("")
+    const thisUrl= "http://localhost:5173"
     const [nombreyApellido, setNombreyApellido] = useState("")
-    const [curso, setCurso] = useState("")
-    const { estaActivo,setEstaActivo, loading } = useAuthStatus();
+    const { estaActivo, setEstaActivo, loading } = useAuthStatus();
     const navigate = useNavigate()
     /**Variables */
-    
+
 
     /**manejo de errores en la app */
     const showError = (type, message) => {
@@ -31,17 +31,33 @@ function GlobalContextProvider({ children }) {
         try {
             const { error } = await supabase.auth.signOut();
             if (error) throw error;
-            setEstaActivo(false) 
+    
+
+            setEstaActivo(false);
             setPopUp({ show: true, message: "Gracias por venir", type: "att", zeIndex: "98", from: "MSJ", duration: "3s" });
+            
+            localStorage.clear();
+            sessionStorage.clear();
+    
+            document.cookie.split(";").forEach(cookie => {
+                document.cookie = cookie.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
+            });
+
+            if ("caches" in window) {
+                const cacheNames = await caches.keys();
+                await Promise.all(cacheNames.map(cache => caches.delete(cache)));
+            }
+    
             setTimeout(() => {
                 limpiarPopUp(1);
+                navigate("/");
             }, 3000);
-            navigate("/")
-        } catch (error) {
-            console.error('Error al cerrar sesión:', error.message);
             
+        } catch (error) {
+            console.error("Error al cerrar sesión:", error.message);
         }
     }
+    
     /** Cerrar sesion */
 
 
@@ -97,21 +113,14 @@ function GlobalContextProvider({ children }) {
 
                 email, setEmail,
                 nombreyApellido, setNombreyApellido,
-                curso, setCurso,
 
                 limpiarInput,
 
+                thisUrl,
 
-
-                estaActivo, 
-                loading, 
+                estaActivo,
+                loading,
                 cerrarSesion,
-              
-
-
-
-
-
             }
         }>
             {children}

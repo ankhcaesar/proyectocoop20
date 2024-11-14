@@ -1,6 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { GlobalContext } from './GlobalContext';
 import { useAuthStatus } from './useAuthStatus';
 
 

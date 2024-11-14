@@ -1,56 +1,34 @@
 import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "../../db/supabaseClient";
 import { GlobalContext } from "../../context/GlobalContext";
 import styles from "./Inicio.module.css";
 import logo from "/Img/logo.svg";
 import InputForm from "../../components/InputForm/Index";
 import Botton from "../../components/Botton/Index";
+import { useAuthStatus } from '../../context/useAuthStatus';
+import { supabase } from "../../db/supabaseClient";
 
 function Inicio() {
-    const {
-        setPopUp,
-        limpiarPopUp,
-        setCargador,
-        email,
-        setEmail,
-        estaActivo,
-    } = useContext(GlobalContext);
-
+    const { setPopUp, limpiarPopUp, setCargador, email, setEmail } = useContext(GlobalContext);
+    const { estaActivo, nuevoregistro, loading } = useAuthStatus();
     const navigate = useNavigate();
 
+    
     useEffect(() => {
-        const verificarUsuario = async () => {
-            const { data: { user } } = await supabase.auth.getUser();
-            const userId = user?.id;
-
-            if (userId) {
-                const { data, error } = await supabase
-                    .from('profile')
-                    .select('user_id')
-                    .eq('user_id', userId)
-                    .single();
-
-                if (error || !data) {
-                    // Redirecciona a /NvoUsuario si no hay registros o no coincide
-                    console.warn('Redirigiendo a NvoUsuario debido a error o falta de coincidencia en profile');
-                    navigate('/NvoUsuario');
-                } else {
-                    navigate('/MenuCompras');
-                }
+        if (!loading) {
+            if (nuevoregistro) {
+                navigate("/MenuCompras", { replace: true });
+            } else if (estaActivo) {
+                navigate("/NvoUsuario", { replace: true });
             }
-        };
-
-        if (estaActivo) {
-            verificarUsuario();
         }
-    }, [estaActivo, navigate]);
+    }, [nuevoregistro, estaActivo, loading, navigate]);
 
     const manejarEnvio = async (e) => {
         e.preventDefault();
-
         setCargador({ show: true });
         const { error } = await supabase.auth.signInWithOtp({ email });
+
         if (error) {
             alert(error.error_description || error.message);
         } else {
