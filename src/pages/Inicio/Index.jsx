@@ -10,19 +10,18 @@ import { supabase } from "../../db/supabaseClient";
 
 function Inicio() {
     const { setPopUp, limpiarPopUp, setCargador, email, setEmail } = useContext(GlobalContext);
-    const { estaActivo, nuevoregistro, loading } = useAuthStatus();
+    const { authState, loading } = useAuthStatus();
     const navigate = useNavigate();
 
-    
     useEffect(() => {
         if (!loading) {
-            if (nuevoregistro) {
-                navigate("/MenuCompras", { replace: true });
-            } else if (estaActivo) {
-                navigate("/NvoUsuario", { replace: true });
+            if (authState === "ACTIV") {
+                navigate("/MenuCompras");
+            } else if (authState === "SPERF") {
+                navigate("/NvoUsuario");
             }
         }
-    }, [nuevoregistro, estaActivo, loading, navigate]);
+    }, [authState, loading, navigate]);
 
     const manejarEnvio = async (e) => {
         e.preventDefault();

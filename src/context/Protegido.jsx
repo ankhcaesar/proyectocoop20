@@ -1,23 +1,19 @@
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthStatus } from './useAuthStatus';
 
-
 function Protegido(Component, redirectUrl = "/") {
-
     return function ComponenteProtegido(props) {
-        const { estaActivo, loading } = useAuthStatus();
+        const { authState, loading } = useAuthStatus();
         const navigate = useNavigate();
 
         useEffect(() => {
-            if (!loading && !estaActivo) {
+            if (!loading && authState !== "ACTIV") {
                 navigate(redirectUrl);
-                
-                
             }
-        }, [estaActivo,loading, navigate, redirectUrl]);
+        }, [authState, loading, navigate, redirectUrl]);
 
-        return estaActivo ? <Component {...props} /> : null;
+        return authState === "ACTIV" ? <Component {...props} /> : null;
     };
 }
 

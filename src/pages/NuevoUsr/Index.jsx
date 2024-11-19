@@ -1,34 +1,43 @@
 import styles from "./NuevoUsr.module.css";
 import { useContext, useEffect, useState } from "react";
-import Protegido from "../../context/Protegido";
 import InputForm from "../../components/InputForm/Index";
 import Botton from "../../components/Botton/Index";
-import SelectForm from "../../components/SelectForm/SelectForm"; // Importar SelectForm
+import SelectForm from "../../components/SelectForm/SelectForm";
 import logo from "/Img/logo.svg";
 import { GlobalContext } from "../../context/GlobalContext";
 import { supabase } from "../../db/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import { useAuthStatus } from '../../context/useAuthStatus';
 
 function NuevoUsr() {
     const {
         setPopUp,
         limpiarPopUp,
         setCargador,
-        email, setEmail,
-        nombreyApellido, setNombreyApellido,
-
+        email,
+        setEmail,
+        nombreyApellido,
+        setNombreyApellido
     } = useContext(GlobalContext);
 
     const [curso, setCurso] = useState("");
     const [cursosDisponibles, setCursosDisponibles] = useState([]);
+    const { authState, loading } = useAuthStatus();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!loading) {
+            if (authState !== "SPERF") {
+                navigate("/");
+            }
+        }
+    }, [authState, loading, navigate]);
 
     useEffect(() => {
         const obtenerEmailUsuario = async () => {
             const { data: { user } } = await supabase.auth.getUser();
             if (user?.email) {
                 setEmail(user.email);
-
             }
         };
 
@@ -44,7 +53,6 @@ function NuevoUsr() {
         obtenerEmailUsuario();
         obtenerOpcionesCurso();
     }, []);
-
 
 
 
@@ -159,4 +167,4 @@ function NuevoUsr() {
     );
 }
 
-export default Protegido(NuevoUsr);
+export default NuevoUsr;
