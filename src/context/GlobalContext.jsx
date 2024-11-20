@@ -2,6 +2,8 @@ import { createContext, useEffect, useReducer, useState } from "react"
 import { supabase } from "../db/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from "./useAuthStatus";
+import { syncFromSupabase, syncToSupabase } from "../db/syncsrv";
+import db from "../db/db";
 
 
 
@@ -14,7 +16,7 @@ function GlobalContextProvider({ children }) {
     const [email, setEmail] = useState("")
     const thisUrl = "http://localhost:5173"
     const [nombreyApellido, setNombreyApellido] = useState("")
-    const { setAuthState } = useAuthStatus();
+    const { authState, setAuthState } = useAuthStatus();
 
     const navigate = useNavigate()
     /**Variables */
@@ -51,8 +53,11 @@ function GlobalContextProvider({ children }) {
                 await Promise.all(cacheNames.map(cache => caches.delete(cache)));
             }
 
+            await db.delete();
+            
+
             setTimeout(() => {
-                limpiarPopUp(1);
+                limpiarPopUp();
                 navigate("/");
             }, 3000);
 
@@ -60,12 +65,20 @@ function GlobalContextProvider({ children }) {
             console.error("Error al cerrar sesión:", error.message);
         }
     }
-
     /** Cerrar sesion */
 
 
     /**datos usuario */
 
+    useEffect(() => {
+        const sincronizar = async () => {
+            if (authState === "ACTIV") {
+                await syncToSupabase();
+                await syncFromSupabase();
+            }
+        };
+        sincronizar();
+    }, [authState]);
 
 
     /**datos usuario */

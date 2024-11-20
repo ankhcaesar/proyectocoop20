@@ -3,12 +3,14 @@ import Dexie from 'dexie';
 const db = new Dexie('ptovta_compra');
 
 db.version(1).stores({
-    articulos: '++id_art, nombre_art, sub_categoria, descripcion, cod_bar, valor_unit',
+    articulos: '++id_art, nombre_art, id_subcat, descripcion_art, codbar, valor_unit, imagen_art',
     categorias: '++id_cat, nombre_cat',
     subcategorias: '++id_subcat, nombre_subcat, id_cat',
-    lista_productos: '++id_lista_prods, id_vta, id_art, valor_unit, cant, total_valor',
-    ventas: '++id_vta, fecha_vta, id_usr, total_valor, id_lista_prods, estado, mp_ft, mp_tf, mp_cc',
-    historial: '++id_hist, id_vta, fecha_vta, id_usr, total_valor, mp_ft, mp_tf, mp_cc, id_lista_prods'
+    lista_prods: '++id_lista_prods, id_venta, id_art, valor_unit, cant, total_valor',
+    historial: '++id_historial, fecha_venta, id_profile, id_lista_prods, total_valor, medio_pago_0, medio_pago_1, medio_pago_2, estado',
+    ventas: '++id_venta, fecha_venta, id_profile, id_lista_prods, total_valor, medio_pago_0, medio_pago_1, medio_pago_2, estado'
 });
 
 export default db;
+
+
