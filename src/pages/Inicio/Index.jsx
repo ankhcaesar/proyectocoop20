@@ -1,5 +1,4 @@
 import { useContext, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { GlobalContext } from "../../context/GlobalContext";
 import styles from "./Inicio.module.css";
 import logo from "/Img/logo.svg";
@@ -9,19 +8,18 @@ import { useAuthStatus } from '../../context/useAuthStatus';
 import { supabase } from "../../db/supabaseClient";
 
 function Inicio() {
-    const { setPopUp, limpiarPopUp, setCargador, email, setEmail } = useContext(GlobalContext);
+    const { setPopUp, limpiarPopUp, setCargador, ir, email, setEmail } = useContext(GlobalContext);
     const { authState, loading } = useAuthStatus();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (!loading) {
             if (authState === "ACTIV") {
-                navigate("/MenuCompras");
+                ir("/MenuCompras");
             } else if (authState === "SPERF") {
-                navigate("/NvoUsuario");
+                ir("/NvoUsuario");
             }
         }
-    }, [authState, loading, navigate]);
+    }, [authState, loading, ir]);
 
     const manejarEnvio = async (e) => {
         e.preventDefault();

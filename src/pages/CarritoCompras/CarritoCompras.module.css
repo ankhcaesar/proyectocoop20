@@ -1,0 +1,34 @@
+.container {
+    width: 92vw;
+    height: 85vh;
+    margin: 0 auto;
+}
+
+.tarjetasProductos {
+    height: 80%;
+}
+
+.containertTotales {
+    height: 15%;
+}
+
+
+.subTotales {
+    border-bottom: solid 1px black;
+}
+
+
+.totalCompra {
+    display: flex;
+    justify-content: flex-end;
+    font-weight: bold;
+}
+
+
+.botones {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    margin: 10px 0;
+    gap: 5px;
+}

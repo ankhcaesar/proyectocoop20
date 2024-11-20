@@ -6,7 +6,6 @@ import SelectForm from "../../components/SelectForm/SelectForm";
 import logo from "/Img/logo.svg";
 import { GlobalContext } from "../../context/GlobalContext";
 import { supabase } from "../../db/supabaseClient";
-import { useNavigate } from "react-router-dom";
 import { useAuthStatus } from '../../context/useAuthStatus';
 
 function NuevoUsr() {
@@ -14,6 +13,7 @@ function NuevoUsr() {
         setPopUp,
         limpiarPopUp,
         setCargador,
+        ir,
         email,
         setEmail,
         nombreyApellido,
@@ -23,15 +23,14 @@ function NuevoUsr() {
     const [curso, setCurso] = useState("");
     const [cursosDisponibles, setCursosDisponibles] = useState([]);
     const { authState, loading } = useAuthStatus();
-    const navigate = useNavigate();
 
     useEffect(() => {
         if (!loading) {
             if (authState !== "SPERF") {
-                navigate("/");
+                ir("/");
             }
         }
-    }, [authState, loading, navigate]);
+    }, [authState, loading, ir]);
 
     useEffect(() => {
         const obtenerEmailUsuario = async () => {
@@ -101,7 +100,7 @@ function NuevoUsr() {
                         limpiarPopUp();
                     }, 3000);
 
-                    navigate("/menuCompras")
+                    ir("menuCompras")
                 }
             }
         } catch (error) {

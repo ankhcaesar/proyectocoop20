@@ -54,7 +54,7 @@ function GlobalContextProvider({ children }) {
             }
 
             await db.delete();
-            
+
 
             setTimeout(() => {
                 limpiarPopUp();
@@ -68,8 +68,7 @@ function GlobalContextProvider({ children }) {
     /** Cerrar sesion */
 
 
-    /**datos usuario */
-
+    /**sincroniza datos */
     useEffect(() => {
         const sincronizar = async () => {
             if (authState === "ACTIV") {
@@ -79,9 +78,7 @@ function GlobalContextProvider({ children }) {
         };
         sincronizar();
     }, [authState]);
-
-
-    /**datos usuario */
+    /**sincroniza datos */
 
 
     /** Popup */
@@ -97,6 +94,38 @@ function GlobalContextProvider({ children }) {
         })
     }
     /**Popup */
+
+
+    /**funcion ir */
+
+
+    function ir(to) {
+        switch (to) {
+            case "CarritoCompras":
+                navigate(`/${to}`)
+                break;
+
+            case "Historial":
+                navigate(`/${to}`)
+                break;
+
+            case "MenuCompras":
+                navigate(`/${to}`)
+                break;
+
+                case "/":
+                navigate(`${to}`)
+                break
+
+            case "salir":
+                cerrarSesion();
+                break;
+        }
+    }
+ //onClick={()=>ir("salir")} 
+
+    /**funcion ir */
+
 
 
     /** Cargador */
@@ -134,8 +163,8 @@ function GlobalContextProvider({ children }) {
 
                 thisUrl,
 
-
-                cerrarSesion,
+                ir,
+                cerrarSesion
             }
         }>
             {children}

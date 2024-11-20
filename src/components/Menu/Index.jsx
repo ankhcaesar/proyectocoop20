@@ -8,11 +8,8 @@ import { GlobalContext } from '../../context/GlobalContext';
 
 function Menu() {
     const [isOpen, setIsOpen] = useState(false);
-    const { cerrarSesion } = useContext(GlobalContext);
-    const salir = () => {
-        cerrarSesion();
-    };
-
+    const { cerrarSesion, ir } = useContext(GlobalContext);
+    
     return (
         <div className={styles.menuContainer}>
             <button
@@ -27,7 +24,7 @@ function Menu() {
                     <Link to="/MenuCompras" className={styles.menuItem}>Menu Compras</Link>
                     <Link to="/CarritoCompras" className={styles.menuItem}>Carrito</Link>
                     <Link to="/Historial" className={styles.menuItem}>Historial</Link>
-                    <button onClick={salir} className={styles.menuItemBoton}>Salir</button>
+                    <button onClick={()=>ir("salir")} className={styles.menuItemBoton}>Salir</button>
                 </div>
             )}
         </div>

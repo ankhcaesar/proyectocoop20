@@ -1,0 +1,36 @@
+
+.planilla {
+    width: 92vw;
+    height: 85vh;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulos {
+    width: 100%;
+    height: 5%;
+    display: flex;
+    justify-content: space-evenly;
+
+    font-weight: bold;
+    border-bottom: solid 2px black;
+}
+
+.detalle {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    justify-content: space-evenly;
+    gap: 5px;
+}
+
+
+.botones {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    margin: 10px 0;
+    gap: 5px;
+}
