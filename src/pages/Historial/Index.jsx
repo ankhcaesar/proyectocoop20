@@ -4,9 +4,29 @@ import Protegido from "../../context/Protegido"
 import Botton from "../../components/Botton/Index"
 import { useContext } from "react"
 import { GlobalContext } from "../../context/GlobalContext"
+
+import { useState, useEffect } from "react";
+import db from "../../db/db"
+
 function Historial() {
 
     const { ir } = useContext(GlobalContext)
+    const [historial, setHistorial] = useState([]);
+
+    /**traigo los datos */
+    useEffect(() => {
+        const fetchHistorial = async () => {
+            try {
+                const data = await db.historial.toArray();
+                setHistorial(data);
+            } catch (error) {
+                console.error("Error al obtener el historial:", error);
+            }
+        };
+
+        fetchHistorial();
+    }, []);
+    /**traigo los datos */
 
     return (
         <section className={styles.contenedorHistorial}>
@@ -19,8 +39,22 @@ function Historial() {
                     <div><p>Total</p></div>
                 </div>
                 <div className={styles.detalle}>
-                    <p>aqui detalle desde api</p>
+
+
+                    {historial.length > 0 ? (
+                        historial.map((item) => (
+                            <div key={item.id_historial} className={styles.registro}>
+                                <div><p>{item.cod_compra}</p></div>
+                                <div><p>{new Date(item.fecha).toLocaleDateString()}</p></div>
+                                <div><p>${item.total.toFixed(2)}</p></div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>Aun no hay registros en el historial.</p>
+                    )}
+
                 </div>
+
             </div>
             <div className={styles.botones}>
                 <Botton mane="Nueva Compra"

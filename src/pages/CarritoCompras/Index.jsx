@@ -21,10 +21,8 @@ function CarritoCompras() {
       });
       setArts(articulosConUrls);
     };
-
     fetchArticulos();
-
-    // Limpia las URLs creadas para evitar fugas de memoria
+    
     return () => {
       arts.forEach((art) => {
         if (art.imagen_url) URL.revokeObjectURL(art.imagen_url);
