@@ -14,9 +14,9 @@ function Inicio() {
     useEffect(() => {
         if (!loading) {
             if (authState === "ACTIV") {
-                ir("/MenuCompras");
+                ir("MenuCompras");
             } else if (authState === "SPERF") {
-                ir("/NvoUsuario");
+                ir("NvoUsuario");
             }
         }
     }, [authState, loading, ir]);

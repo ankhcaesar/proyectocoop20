@@ -15,22 +15,51 @@ function CarritoCompras() {
   useEffect(() => {
     const fetchArticulos = async () => {
       const data = await db.articulos.toArray();
-      setArts(data);
+      const articulosConUrls = data.map((art) => {
+        const url = art.imagen_blob ? URL.createObjectURL(art.imagen_blob) : null;
+        return { ...art, imagen_url: url };
+      });
+      setArts(articulosConUrls);
     };
 
     fetchArticulos();
-  }, []);
 
+    // Limpia las URLs creadas para evitar fugas de memoria
+    return () => {
+      arts.forEach((art) => {
+        if (art.imagen_url) URL.revokeObjectURL(art.imagen_url);
+      });
+    };
+  }, []);
 
   return (
     <section className={styles.contenedorCarritoCompras}>
       <Header titulo="Carrito de compras" />
       <div className={styles.container}>
         <div className={styles.tarjetasProductos}>
-          <ul>
-            {arts.map((art) => (
-              <li key={art.id_art}>{art.nombre_art}</li>
-            ))}
+
+          <ul className={styles.listaArticulos}>
+            {arts.length > 0 ? (
+              arts.map((art) => (
+                <li key={art.id_art} className={styles.articulo}>
+                  <div>
+                    <h3>{art.nombre_art}</h3>
+                    <p>{art.descripcion_art}</p>
+                    {art.imagen_url ? (
+                      <img
+                        src={art.imagen_url}
+                        alt={art.nombre_art}
+                        className={styles.imagArticulo}
+                      />
+                    ) : (
+                      <p>Imagen no disponible</p>
+                    )}
+                  </div>
+                </li>
+              ))
+            ) : (
+              <li className={styles.articulo}>No hay artículos disponibles</li>
+            )}
           </ul>
         </div>
         <div className={styles.containertTotales}>
@@ -38,7 +67,7 @@ function CarritoCompras() {
             <div><p>Cant productos: 0</p></div>
             <div><p>Total unidades: 0</p></div>
           </div>
-            <div className={styles.totalCompra}><p>TOTAL COMPRA: $0.00,00</p></div>
+          <div className={styles.totalCompra}><p>TOTAL COMPRA: $0.00,00</p></div>
         </div>
 
 

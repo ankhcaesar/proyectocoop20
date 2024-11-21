@@ -6,7 +6,16 @@
 
 .tarjetasProductos {
     height: 80%;
+
+    overflow-y: scroll;
 }
+
+.imagArticulo{
+    height:150px ;
+    aspect-ratio: 4/3;
+}
+
+
 
 .containertTotales {
     height: 15%;
