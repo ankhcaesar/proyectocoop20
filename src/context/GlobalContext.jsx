@@ -37,24 +37,26 @@ function GlobalContextProvider({ children }) {
             const { error } = await supabase.auth.signOut();
             if (error) throw error;
 
-
             setAuthState("SREG");
             setPopUp({ show: true, message: "Gracias por venir", type: "att", zeIndex: "98", from: "MSJ", duration: "3s" });
 
+            // Limpia el almacenamiento local
             localStorage.clear();
             sessionStorage.clear();
 
+            // Limpia las cookies
             document.cookie.split(";").forEach(cookie => {
                 document.cookie = cookie.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date(0).toUTCString() + ";path=/");
             });
 
+            // Limpia el cache
             if ("caches" in window) {
                 const cacheNames = await caches.keys();
                 await Promise.all(cacheNames.map(cache => caches.delete(cache)));
             }
 
-            await db.delete();
-
+            // Limpia IndexedDB
+            await Promise.all(db.tables.map((table) => table.clear())); // Limpia todas las tablas
 
             setTimeout(() => {
                 limpiarPopUp();
@@ -113,7 +115,7 @@ function GlobalContextProvider({ children }) {
                 navigate(`/${to}`)
                 break;
 
-                case "/":
+            case "/":
                 navigate(`${to}`)
                 break
 
@@ -122,7 +124,7 @@ function GlobalContextProvider({ children }) {
                 break;
         }
     }
- //onClick={()=>ir("salir")} 
+    //onClick={()=>ir("salir")} 
 
     /**funcion ir */
 
