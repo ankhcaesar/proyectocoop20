@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="9.9999065mm"
+   height="9.9999065mm"
+   viewBox="0 0 9.9999065 9.9999065"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <linearGradient
+       id="linearGradient36374">
+      <stop
+         style="stop-color:#ff0000;stop-opacity:1;"
+         offset="0"
+         id="stop36372" />
+    </linearGradient>
+  </defs>
+  <g
+     id="layer2"
+     transform="translate(-2587.1342,-2579.0349)">
+    <g
+       id="g3"
+       transform="matrix(0.03910709,0,0,0.03885394,2485.959,2478.8291)">
+      <rect
+         style="fill:none;fill-opacity:1;stroke:none;stroke-width:0.740567;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect46538"
+         width="255.70813"
+         height="257.37415"
+         x="2587.1343"
+         y="2579.0347" />
+      <path
+         d="m 2695.8392,2582.7218 v 106.9212 h -105.8509 v 36.6737 h 105.8509 v 106.4049 h 38.2979 v -106.4049 h 105.8509 v -36.6737 h -105.8509 v -106.9212 z"
+         style="font-size:524.165px;line-height:1.25;font-family:Dyuthi;-inkscape-font-specification:Dyuthi;fill:#000000;fill-opacity:1;stroke-width:13.1042"
+         id="path2" />
+    </g>
+  </g>
+</svg>

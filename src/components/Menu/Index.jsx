@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Menu.module.css';
 import { GlobalContext } from '../../context/GlobalContext';
+import iconomenu from "/Icons/menu.svg"
 
 
 
@@ -16,7 +17,7 @@ function Menu() {
                 className={styles.botonMenu}
                 onClick={() => setIsOpen(!isOpen)}
             >
-                MENU
+               <img src={iconomenu} alt="menu" /> 
             </button>
             {isOpen && (
                 <div className={styles.menu}>

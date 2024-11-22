@@ -5,6 +5,7 @@ import db from "../../db/db"
 import { useContext, useEffect, useState } from "react"
 import Botton from "../../components/Botton/Index"
 import { GlobalContext } from "../../context/GlobalContext"
+import TarjetasCarrito from "../../components/TarjetasCarrito/TarjetasCarrito"
 
 function CarritoCompras() {
 
@@ -22,7 +23,7 @@ function CarritoCompras() {
       setArts(articulosConUrls);
     };
     fetchArticulos();
-    
+
     return () => {
       arts.forEach((art) => {
         if (art.imagen_url) URL.revokeObjectURL(art.imagen_url);
@@ -36,29 +37,20 @@ function CarritoCompras() {
       <div className={styles.container}>
         <div className={styles.tarjetasProductos}>
 
-          <ul className={styles.listaArticulos}>
+          
             {arts.length > 0 ? (
               arts.map((art) => (
-                <li key={art.id_art} className={styles.articulo}>
-                  <div>
-                    <h3>{art.nombre_art}</h3>
-                    <p>{art.descripcion_art}</p>
-                    {art.imagen_url ? (
-                      <img
-                        src={art.imagen_url}
-                        alt={art.nombre_art}
-                        className={styles.imagArticulo}
-                      />
-                    ) : (
-                      <p>Imagen no disponible</p>
-                    )}
-                  </div>
-                </li>
+                <TarjetasCarrito
+                  key={art.id_art}
+                  urlImagen={art.imagen_url}
+                  nombre={art.nombre_art}
+                  descripcion={art.descripcion_art}
+                />
               ))
             ) : (
-              <li className={styles.articulo}>No hay artículos disponibles</li>
+              <p className={styles.articulo}>No hay artículos disponibles</p>
             )}
-          </ul>
+          
         </div>
         <div className={styles.containertTotales}>
           <div className={styles.subTotales}>
@@ -76,7 +68,7 @@ function CarritoCompras() {
           label="AGREGAR"
           type="Button"
           medida="40%"
-          onClick={() => ir("")}
+          onClick={() => ir("AgrProductos")}
         />
         <Botton mane="Finalizar"
           label="FINALIZAR"

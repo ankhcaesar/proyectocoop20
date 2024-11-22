@@ -1,0 +1,25 @@
+.listaFiltros {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+}
+
+.toggleButton {
+    padding: 8px 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.toggleButton:hover {
+    background-color: #e0e0e0;
+}
+
+.toggleButton.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}

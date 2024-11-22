@@ -7,7 +7,6 @@ import { GlobalContext } from "../../context/GlobalContext"
 function MenuCompras() {
     const { ir } = useContext(GlobalContext)
 
-   
     return (
         <section className={styles.contenedorMenuCompras}>
             <div>

@@ -2,18 +2,20 @@
     width: 92vw;
     height: 85vh;
     margin: 0 auto;
+    
 }
 
 .tarjetasProductos {
     height: 80%;
-
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    
 }
 
-.imagArticulo{
-    height:150px ;
-    aspect-ratio: 4/3;
-}
+
 
 
 

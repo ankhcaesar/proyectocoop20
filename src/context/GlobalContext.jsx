@@ -119,13 +119,16 @@ function GlobalContextProvider({ children }) {
                 navigate(`${to}`)
                 break
 
+            case "AgrProductos":
+                navigate(`${to}`);
+                break;
+
             case "salir":
                 cerrarSesion();
                 break;
         }
     }
     //onClick={()=>ir("salir")} 
-
     /**funcion ir */
 
 
