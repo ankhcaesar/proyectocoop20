@@ -14,11 +14,11 @@
     transition: background-color 0.3s;
 }
 
-.toggleButton:hover {
+.ListaFiltrosBoton:hover {
     background-color: #e0e0e0;
 }
 
-.toggleButton.active {
+.ListaFiltrosBoton.active {
     background-color: #007bff;
     color: #fff;
     border-color: #007bff;

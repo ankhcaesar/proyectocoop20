@@ -5,7 +5,7 @@ import db from "../../db/db"
 import { useContext, useEffect, useState } from "react"
 import Botton from "../../components/Botton/Index"
 import { GlobalContext } from "../../context/GlobalContext"
-import TarjetasCarrito from "../../components/TarjetasCarrito/TarjetasCarrito"
+import TarjetasCarrito from "../../components/TarjetasCarrito/Index"
 
 function CarritoCompras() {
 

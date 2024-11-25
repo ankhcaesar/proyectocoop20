@@ -3,7 +3,7 @@ import Dexie from 'dexie';
 const db = new Dexie('ptovta_compra');
 
 db.version(2).stores({
-    articulos: '++id_art, nombre_art, id_subcat, descripcion_art, codbar, valor_unit, imagen_art',
+    articulos: '++id_art, nombre_art, id_subcat, descripcion_art, codbar, valor_unit, imagen_art,Id_cat',
     categorias: '++id_cat, nombre_cat',
     subcategorias: '++id_subcat, nombre_subcat, id_cat',
     lista_prods: '++id_lista_prods, id_venta, id_art, valor_unit, cant, total_valor',

@@ -3,7 +3,7 @@ import Botton from "../../components/Botton/Index"
 import Header from "../../components/Header/Index"
 import { useState } from "react"
 import IngresoQr from "../../components/IngresoQr/IngresoQr"
-import IngresoManual from "../../components/IngresoManual/IngresoManual"
+import IngresoManual from "../../components/IngresoManual/Index"
 
 function AgrProductos() {
 

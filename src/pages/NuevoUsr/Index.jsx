@@ -2,7 +2,7 @@ import styles from "./NuevoUsr.module.css";
 import { useContext, useEffect, useState } from "react";
 import InputForm from "../../components/InputForm/Index";
 import Botton from "../../components/Botton/Index";
-import SelectForm from "../../components/SelectForm/SelectForm";
+import SelectForm from "../../components/SelectForm/Index";
 import logo from "/Img/logo.svg";
 import { GlobalContext } from "../../context/GlobalContext";
 import { supabase } from "../../db/supabaseClient";

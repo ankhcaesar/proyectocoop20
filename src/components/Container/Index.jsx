@@ -1,5 +1,5 @@
 import styles from "./Container.module.css"
-import Cargador from "../../components/Cargador/Cargador"
+import Cargador from "../../components/Cargador/Index"
 import PopUp from "../../components/PopUp/Index"
 import { useContext, useState } from "react"
 import { GlobalContext } from "../../context/GlobalContext"

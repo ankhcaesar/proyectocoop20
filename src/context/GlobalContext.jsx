@@ -5,10 +5,7 @@ import { useAuthStatus } from "./useAuthStatus";
 import { syncFromSupabase, syncToSupabase } from "../db/syncsrv";
 import db from "../db/db";
 
-
-
 export const GlobalContext = createContext();
-
 function GlobalContextProvider({ children }) {
 
 
@@ -18,6 +15,9 @@ function GlobalContextProvider({ children }) {
     const [nombreyApellido, setNombreyApellido] = useState("")
     const { authState, setAuthState } = useAuthStatus();
 
+
+
+    
     const navigate = useNavigate()
     /**Variables */
 
@@ -99,8 +99,6 @@ function GlobalContextProvider({ children }) {
 
 
     /**funcion ir */
-
-
     function ir(to) {
         switch (to) {
             case "CarritoCompras":
