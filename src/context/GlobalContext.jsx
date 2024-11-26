@@ -17,7 +17,7 @@ function GlobalContextProvider({ children }) {
 
 
 
-    
+
     const navigate = useNavigate()
     /**Variables */
 
@@ -29,6 +29,7 @@ function GlobalContextProvider({ children }) {
             limpiarPopUp(1);
         }, 3000);
     };
+
 
 
     /** Cerrar sesion */
@@ -97,6 +98,14 @@ function GlobalContextProvider({ children }) {
     }
     /**Popup */
 
+    /** popUpConfirm */
+    const [popUpConfirm, setPopUpConfirm] = useState({ show: false, from: "", urlImagen: "", nombre: "", descripcion: "", valor: "" });
+    const limpiarPopUpConfirm = () => {
+        setPopUpConfirm({ show: false, from: "", urlImagen: "", nombre: "", descripcion: "", valor: "" });
+    };
+    /**popUpConfirm */
+
+
 
     /**funcion ir */
     function ir(to) {
@@ -156,6 +165,9 @@ function GlobalContextProvider({ children }) {
                 popUp, setPopUp,
                 limpiarPopUp,
 
+                popUpConfirm, setPopUpConfirm,
+                limpiarPopUpConfirm,
+
                 cargador, setCargador,
                 cerrarCargador,
 
@@ -168,6 +180,8 @@ function GlobalContextProvider({ children }) {
 
                 ir,
                 cerrarSesion
+
+
             }
         }>
             {children}

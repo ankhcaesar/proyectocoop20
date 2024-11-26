@@ -1,13 +1,36 @@
 .contenedorArticulo {
-
+    width: 200px;
+    height: 200px;
+    position: relative;
     display: flex;
     flex-direction: column;
+    border-radius: 5px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.616);
+    background-color:white;
 
+    :hover {
+        transition: 0.5s;
+        box-shadow: inset 3px 3px 8px rgba(95, 95, 95, 0.452);
+        border-radius: 5px;
+        border: 0;
 
-    & img {
-        height: 100px;
-        padding: 0 5px;
+        
     }
+
+    :not(hover) {
+        transition: 0.5s;
+        
+    }
+
+    :active {
+        transition: 0.5s;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.616);
+    }
+}
+
+.contenedorArticulo img {
+    height: 100px;
+    padding: 0 5px;
 }
 
 .nombre,
@@ -20,27 +43,15 @@
     margin: 0px 10px 5px 0;
 }
 
-.superior {
-
+.boton {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     width: 200px;
     height: 200px;
-    border-radius: 5px;
-    border: solid 2px rgba(255, 255, 255, 0.562);
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.616);
-    background-color: rgb(255, 255, 255);
-
-    :hover {
-        transition: 0.5s;
-        scale: 1.05;
-    }
-
-    :not(hover) {
-        transition: 0.5s;
-        scale: 1;
-    }
-    :active{
-        transition: 0.5s;
-        scale: 0.9;
-        
-    }
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
 }

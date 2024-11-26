@@ -1,23 +1,14 @@
 .container {
-    width: 92vw;
-    height: 80vh;
+    width: 95vw;
+    height: 82vh;
     margin: 0 auto;
-    
+
 }
-
-
-
-
-
-
-
-
-
 
 .botones {
     display: flex;
     justify-content: center;
-    width: 100vw;
+    width: 95vw;
     margin: 10px 0;
     gap: 5px;
 }
