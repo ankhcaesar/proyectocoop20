@@ -4,8 +4,9 @@ import db from "../../db/db";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
 import styles from "./IngresoQr.module.css";
-import Botton from "../Botton/Index";
-import iconocodbar from "/Icons/codbarscan.svg"
+import iconoscan from "/Icons/scan.svg"
+
+
 
 function IngresoQr() {
     const { setPopUpConfirm, setPopUp, limpiarPopUp } = useContext(GlobalContext);
@@ -106,17 +107,17 @@ function IngresoQr() {
 
         <section className={styles.contenedor}>
 
-            <div ref={videoRef} className={styles.videoContainer}></div>
+            <div ref={videoRef} className={styles.videoContainer}> </div>
+            
 
 
-            <div className={styles.boton}>
-                <Botton
-                    mane="Ing Manual"
-                    label={scanning ? "Detener Escaneo" : "Iniciar Escaneo"}
+            <div className={styles.botton} >
+                <button
+                className={`${styles.boton} ${scanning ? styles.scanning : ""}`}
+                    mane="Escanear"
                     type="Button"
-                    medida="40%"
                     onClick={() => setScanning((prev) => !prev)}
-                />
+                >  <img src={iconoscan} alt="" /> </button>
             </div>
 
 

@@ -14,6 +14,7 @@
 .filtros {
     width: 95%;
     overflow-x: scroll;
+    overflow:hidden;
     display: flex;
     flex-direction: column;
     padding: 10px;

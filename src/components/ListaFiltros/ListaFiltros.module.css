@@ -1,7 +1,7 @@
 .listaFiltros {
     display: flex;
     gap: 8px;
-    flex-wrap: wrap;
+/*    overflow-x: scroll; */
 }
 
 .ListaFiltrosBoton {

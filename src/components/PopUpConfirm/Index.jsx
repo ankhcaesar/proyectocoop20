@@ -1,5 +1,4 @@
 import styles from "./PopUpConfirm.module.css"
-import iconoCerrar from "/Icons/nocheck.svg"
 import iconoOk from "/Icons/check_blanco.svg"
 import tachito from "/Icons/tachito_blanco.svg"
 
