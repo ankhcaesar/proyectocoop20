@@ -8,7 +8,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import TarjetasCarrito from "../../components/TarjetasCarrito/Index";
 
 function CarritoCompras() {
-  const { ir, idVenta, statusVenta } = useContext(GlobalContext);
+  const { ir, idVenta, statusVenta, formatomoneda } = useContext(GlobalContext);
   const [listaProds, setListaProds] = useState([]);
 
   useEffect(() => {
@@ -66,27 +66,47 @@ function CarritoCompras() {
     cargarProductos();
   }, [idVenta, statusVenta, ir]);
 
+  const actualizarCant = async (id_lista_prods, operacion) => {
+    const producto = listaProds.find((prod) => prod.id_lista_prods === id_lista_prods);
+    if (producto) {
+      const nuevaCantidad = operacion === "sumar" ? producto.cant + 1 : producto.cant - 1;
+  
+      if (nuevaCantidad > 0) {
+        const nuevoTotal = producto.valor_unit * nuevaCantidad;
+        await db.lista_prods.update(id_lista_prods, { cant: nuevaCantidad, total_valor: nuevoTotal });
+        setListaProds((prev) =>
+          prev.map((p) =>
+            p.id_lista_prods === id_lista_prods ? { ...p, cant: nuevaCantidad, total_valor: nuevoTotal } : p
+          )
+        );
+      } else {
+        // Eliminar el producto si la cantidad llega a 0
+        await db.lista_prods.delete(id_lista_prods);
+        setListaProds((prev) => prev.filter((p) => p.id_lista_prods !== id_lista_prods));
+      }
+    }
+  };
+
+
   return (
     <section className={styles.contenedorCarritoCompras}>
       <Header titulo="Carrito de compras" />
       <div className={styles.container}>
-        <div className={styles.tarjetasProductosv}>
+        <div className={styles.tarjetasProductos}>
           {listaProds.length > 0 ? (
-
-
-
             listaProds.map((prod) => (
+
               <TarjetasCarrito
                 key={prod.id_lista_prods}
                 id_art={prod.id_art}
-
-
+                id_lista_prods={prod.id_lista_prods}
                 urlImagen={prod.imagen}
                 nombre={prod.nombre}
                 descripcion={prod.descripcion}
                 valor_unit={prod.valor_unit}
                 cant={prod.cant}
-                total_valor={prod.total_valor}
+                total_valor={formatomoneda(prod.total_valor)}
+                onActualizarCant={actualizarCant}
               />
             )))
             : (
@@ -95,12 +115,15 @@ function CarritoCompras() {
         </div>
         <div className={styles.containertTotales}>
           <div className={styles.subTotales}>
-            <p>Cant productos: {listaProds.length}</p>
+            <p>Cantidad de productos: {listaProds.length}</p>
+            <p>Total de unidades:{" "}
+              {listaProds.reduce((acc, prod) => acc + prod.cant, 0)}</p>
           </div>
           <div className={styles.totalCompra}>
             <p>
               TOTAL COMPRA:{" "}
-              {listaProds.reduce((acc, prod) => acc + prod.total_valor, 0).toFixed(2)}
+              {formatomoneda(
+              listaProds.reduce((acc, prod) => acc + prod.total_valor, 0).toFixed(2) )}
             </p>
           </div>
         </div>

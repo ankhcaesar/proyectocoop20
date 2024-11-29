@@ -10,7 +10,7 @@ import db from "../../db/db"
 
 function Historial() {
 
-    const { ir } = useContext(GlobalContext)
+    const { ir, idVenta, formatomoneda } = useContext(GlobalContext)
     const [historial, setHistorial] = useState([]);
 
     /**traigo los datos */
@@ -46,7 +46,7 @@ function Historial() {
                             <div key={item.id_historial} className={styles.registro}>
                                 <div><p>{item.cod_compra}</p></div>
                                 <div><p>{new Date(item.fecha).toLocaleDateString()}</p></div>
-                                <div><p>${item.total.toFixed(2)}</p></div>
+                                <div><p>${formatomoneda(item.total.toFixed(2))}</p></div>
                             </div>
                         ))
                     ) : (
@@ -58,7 +58,7 @@ function Historial() {
             </div>
             <div className={styles.botones}>
                 <Botton mane="Nueva Compra"
-                    label="NUEVA COMPRA"
+                    label={!idVenta ? "NUEVA COMPRA" : "IR AL CARRITO"}
                     type="Button"
                     medida="40%"
                     onClick={() => ir("CarritoCompras")}

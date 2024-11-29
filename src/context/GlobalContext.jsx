@@ -120,8 +120,6 @@ function GlobalContextProvider({ children }) {
     };
     /**popUpConfirm */
 
-
-
     /**funcion ir */
     function ir(to) {
         switch (to) {
@@ -153,7 +151,14 @@ function GlobalContextProvider({ children }) {
     //onClick={()=>ir("salir")} 
     /**funcion ir */
 
-
+    /** funcion formato modena */
+    function formatomoneda (valor) {
+        return new Intl.NumberFormat("es-AR", {
+          style: "currency",
+          currency: "ARS",
+        }).format(valor);
+      };
+    /** funcion formato modena */
 
     /** Cargador */
     const [cargador, setCargador] = useState({ show: false, duration: "" })
@@ -192,6 +197,7 @@ function GlobalContextProvider({ children }) {
                 limpiarInput,
 
                 thisUrl,
+                formatomoneda,
 
                 ir,
                 cerrarSesion,

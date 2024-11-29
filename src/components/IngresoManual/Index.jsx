@@ -1,9 +1,10 @@
 import styles from "./IngresoManual.module.css";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import TarjetasIngresoManual from "../TarjetasIngresoManual/Index";
 import db from "../../db/db";
 import InputForm from "../InputForm/Index";
 import ListaFiltros from "../ListaFiltros/Index";
+import { GlobalContext } from "../../context/GlobalContext";
 
 function IngresoManual() {
     const [arts, setArts] = useState([]);
@@ -12,6 +13,7 @@ function IngresoManual() {
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
     const [subcategoriaSeleccionada, setSubcategoriaSeleccionada] = useState(null);
     const [busquedaTexto, setBusquedaTexto] = useState("");
+    const {formatomoneda}=useContext(GlobalContext)
 
     useEffect(() => {
         const fetchFiltros = async () => {
@@ -56,7 +58,7 @@ function IngresoManual() {
                         urlImagen={URL.createObjectURL(art.imagen_blob)} 
                         nombre={art.nombre_art} 
                         descripcion={art.descripcion_art} 
-                        valor={art.valor_unit} />
+                        valor={formatomoneda(art.valor_unit)} />
                     ))
                 ) : (
                     <p className={styles.articulo}>No hay artículos disponibles</p>
