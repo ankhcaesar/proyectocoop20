@@ -143,6 +143,10 @@ function GlobalContextProvider({ children }) {
                 navigate(`${to}`);
                 break;
 
+                case "FinCompra":
+                navigate(`${to}`);
+                break;
+
             case "salir":
                 cerrarSesion();
                 break;

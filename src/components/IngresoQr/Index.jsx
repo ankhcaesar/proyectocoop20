@@ -1,9 +1,9 @@
+import styles from "./IngresoQr.module.css";
 import { useEffect, useRef, useState } from "react";
 import Quagga from "@ericblade/quagga2";
 import db from "../../db/db";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/GlobalContext";
-import styles from "./IngresoQr.module.css";
 import iconoscan from "/Icons/scan.svg";
 
 function IngresoQr() {
@@ -36,20 +36,14 @@ function IngresoQr() {
                 }
             );
 
-            // Manejar detección
             Quagga.onDetected(async (data) => {
                 const codigo = data.codeResult.code;
-                
-
                 if (codigo) {
-                    // Buscar producto en IndexedDB
                     const producto = await db.articulos.where("codbar").equals(codigo).first();
                     if (producto) {
-                        // Convertir blob a URL si existe
                         const imagenUrl = producto.imagen_blob
                             ? URL.createObjectURL(producto.imagen_blob)
                             : "";
-
                         setPopUpConfirm({
                             show: true,
                             from: "AGRP",
@@ -59,11 +53,10 @@ function IngresoQr() {
                             valor: producto.valor_unit,
                         });
 
-                        // Liberar memoria cuando la URL ya no sea necesaria
                         if (imagenUrl) {
                             setTimeout(() => {
                                 URL.revokeObjectURL(imagenUrl);
-                            }, 5000); // Revoke después de un tiempo
+                            }, 5000);
                         }
                     } else {
                         setPopUp({
@@ -74,9 +67,7 @@ function IngresoQr() {
                             from: "MSJ",
                             duration: "3s",
                         });
-                        setTimeout(() => {
-                            limpiarPopUp();
-                        }, 3000);
+                        setTimeout(() => limpiarPopUp(), 3000);
                     }
                     Quagga.stop();
                     setScanning(false);
@@ -107,20 +98,34 @@ function IngresoQr() {
             if (scanning) {
                 Quagga.stop();
             }
+            // Limpia el contenido del video y el canvas
+            if (videoRef.current) {
+                const videoElement = videoRef.current.querySelector("video");
+                if (videoElement) {
+                    videoElement.srcObject = null;
+                }
+            }
+            const drawingCtx = Quagga.canvas?.ctx?.overlay;
+            const drawingCanvas = Quagga.canvas?.dom?.overlay;
+            if (drawingCtx && drawingCanvas) {
+                drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height);
+            }
         };
     }, [scanning, setPopUp, setPopUpConfirm]);
 
     return (
         <section className={styles.contenedor}>
-            <div ref={videoRef} className={styles.videoContainer}></div>
+            <div
+                ref={videoRef}
+                className={`${styles.videoContainer} ${scanning ? styles.videoContainerSScanning : ""}`}
+            ></div>
             <div className={styles.botton}>
                 <button
                     className={`${styles.boton} ${scanning ? styles.scanning : ""}`}
-                    mane="Escanear"
-                    type="Button"
+                    type="button"
                     onClick={() => setScanning((prev) => !prev)}
                 >
-                    <img src={iconoscan} alt="" />
+                    <img src={iconoscan} alt="Escanear" />
                 </button>
             </div>
         </section>

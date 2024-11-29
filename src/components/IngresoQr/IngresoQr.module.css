@@ -19,6 +19,19 @@
     background-position: center;
 }
 
+
+.videoContainerSScanning{
+    width: 80vw;
+    aspect-ratio: 19/8;
+    position: relative;
+    top: 20vh;
+    overflow: hidden;
+    background-image: none;
+
+
+}
+
+
 canvas {
     position: absolute;
     /* Superpone el canvas sobre el video */

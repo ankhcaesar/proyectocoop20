@@ -9,7 +9,7 @@ import { GlobalContext } from "../../context/GlobalContext"
 
 function AgrProductos() {
 
-    const { popUpConfirm, limpiarPopUpConfirm } = useContext(GlobalContext)
+    const { ir, popUpConfirm, limpiarPopUpConfirm } = useContext(GlobalContext)
 
     const [tipoIngreso, setTipoIngreso] = useState(true);
 
@@ -22,12 +22,19 @@ function AgrProductos() {
 
             </div>
             <div className={styles.botones}>
+            <Botton mane="Carrito"
+                    label="VOLVER"
+                    type="Button"
+                    medida="45%"
+                    onClick={() => ir("CarritoCompras")}
+                />
                 <Botton mane="Ing Manual"
                     label={tipoIngreso === true ? "INGRESO MANUAL" : "LECTOR QR"}
                     type="Button"
-                    medida=""
+                    medida="45%"
                     onClick={() => setTipoIngreso((prev) => !prev)}
                 />
+                
             </div>
 
             {popUpConfirm.show && <PopUpConfirm id={popUpConfirm.id} from={popUpConfirm.from} urlImagen={popUpConfirm.urlImagen} nombre={popUpConfirm.nombre} descripcion={popUpConfirm.descripcion} valor={popUpConfirm.valor} onClose={limpiarPopUpConfirm}/>}

@@ -3,8 +3,6 @@ import styles from "./Header.module.css"
 
 function Header(props) {
 
-
-
     return (
         <section className={styles.containerheader}>
             <header>

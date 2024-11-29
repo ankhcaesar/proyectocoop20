@@ -8,6 +8,7 @@ import { GlobalContext } from "../../context/GlobalContext";
 import TarjetasCarrito from "../../components/TarjetasCarrito/Index";
 
 function CarritoCompras() {
+  //variables
   const { ir, idVenta, statusVenta, formatomoneda } = useContext(GlobalContext);
   const [listaProds, setListaProds] = useState([]);
 
@@ -70,7 +71,7 @@ function CarritoCompras() {
     const producto = listaProds.find((prod) => prod.id_lista_prods === id_lista_prods);
     if (producto) {
       const nuevaCantidad = operacion === "sumar" ? producto.cant + 1 : producto.cant - 1;
-  
+
       if (nuevaCantidad > 0) {
         const nuevoTotal = producto.valor_unit * nuevaCantidad;
         await db.lista_prods.update(id_lista_prods, { cant: nuevaCantidad, total_valor: nuevoTotal });
@@ -123,7 +124,7 @@ function CarritoCompras() {
             <p>
               TOTAL COMPRA:{" "}
               {formatomoneda(
-              listaProds.reduce((acc, prod) => acc + prod.total_valor, 0).toFixed(2) )}
+                listaProds.reduce((acc, prod) => acc + prod.total_valor, 0).toFixed(2))}
             </p>
           </div>
         </div>
@@ -141,7 +142,7 @@ function CarritoCompras() {
           label="FINALIZAR"
           type="Button"
           medida="40%"
-          onClick={() => ir("")}
+          onClick={() => ir("FinCompra")}
         />
       </div>
     </section>

@@ -7,6 +7,7 @@ import Historial from "./src/pages/Historial/Index"
 import MenuCompras from "./src/pages/MenuCompras/Index"
 import NuevoUsr from "./src/pages/NuevoUsr/Index"
 import AgrProductos from "./src/pages/AgrProductos/Index"
+import FinCompra from "./src/pages/FinCompra/Index"
 
 
 
@@ -19,10 +20,10 @@ function AppRoute() {
                     <Route path="*" element={<E404 />} />
                     <Route path="/CarritoCompras" element={<CarritoCompras />} />
                     <Route path="/Historial" element={<Historial />} />
-                    <Route path="/MenuCompras" element={<MenuCompras />    } />
-                    <Route path="/NvoUsuario" element={<NuevoUsr/>} />
-
-                    <Route path="/AgrProductos" element={<AgrProductos/>} />
+                    <Route path="/MenuCompras" element={<MenuCompras />} />
+                    <Route path="/NvoUsuario" element={<NuevoUsr />} />
+                    <Route path="/FinCompra" element={<FinCompra />} />
+                    <Route path="/AgrProductos" element={<AgrProductos />} />
                 </Route>
             </Routes>
         </BrowserRouter>
