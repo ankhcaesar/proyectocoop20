@@ -14,12 +14,27 @@ function GlobalContextProvider({ children }) {
     const thisUrl = "http://localhost:5173"
     const [nombreyApellido, setNombreyApellido] = useState("")
     const { authState, setAuthState } = useAuthStatus();
-
-
-
-
     const navigate = useNavigate()
     /**Variables */
+
+
+
+    /**Mantiene sincronizado el estado de idventa y statusventa */
+    const [idVenta, setIdVenta] = useState(() => {
+        const storedIdVenta = localStorage.getItem("idVenta");
+        return storedIdVenta ? parseInt(storedIdVenta, 10) : null;
+    });
+    const [statusVenta, setStatusVenta] = useState(() => {
+        const storedStatus = localStorage.getItem("statusVenta");
+        return storedStatus === "true";
+    });
+
+    useEffect(() => {
+        localStorage.setItem("idVenta", idVenta?.toString() || "");
+        localStorage.setItem("statusVenta", statusVenta.toString());
+    }, [idVenta, statusVenta]);
+    /**Mantiene sincronizado el estado de idventa y statusventa */
+
 
 
     /**manejo de errores en la app */
@@ -99,7 +114,7 @@ function GlobalContextProvider({ children }) {
     /**Popup */
 
     /** popUpConfirm */
-    const [popUpConfirm, setPopUpConfirm] = useState({ show: false, from: "", urlImagen: "", nombre: "", descripcion: "", valor: "" });
+    const [popUpConfirm, setPopUpConfirm] = useState({ id: "", show: false, from: "", urlImagen: "", nombre: "", descripcion: "", valor: "" });
     const limpiarPopUpConfirm = () => {
         setPopUpConfirm({ show: false, from: "", urlImagen: "", nombre: "", descripcion: "", valor: "" });
     };
@@ -179,9 +194,10 @@ function GlobalContextProvider({ children }) {
                 thisUrl,
 
                 ir,
-                cerrarSesion
+                cerrarSesion,
 
-
+                idVenta, setIdVenta,
+                statusVenta, setStatusVenta,
             }
         }>
             {children}

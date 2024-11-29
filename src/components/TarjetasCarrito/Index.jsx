@@ -21,10 +21,10 @@ function TarjetasCarrito(props) {
                         <button className={styles.botonmm}>
                             <img src={iconomenos} alt="menos" />
                         </button>
-                        <p className={styles.cantidad}>10</p>
+                        <p className={styles.cantidad}>{props.cant}</p>
                         <button className={styles.botonmm}><img src={iconomas} alt="mas" /></button>
                     </div>
-                    <div><p className={styles.info}>$00.000,0</p></div>
+                    <div><p className={styles.info}>{props.total_valor}</p></div>
                 </section>
             </div>
         </section>

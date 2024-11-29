@@ -30,7 +30,7 @@ function AgrProductos() {
                 />
             </div>
 
-            {popUpConfirm.show && <PopUpConfirm from={popUpConfirm.from} urlImagen={popUpConfirm.urlImagen} nombre={popUpConfirm.nombre} descripcion={popUpConfirm.descripcion} valor={popUpConfirm.valor} onClose={limpiarPopUpConfirm}/>}
+            {popUpConfirm.show && <PopUpConfirm id={popUpConfirm.id} from={popUpConfirm.from} urlImagen={popUpConfirm.urlImagen} nombre={popUpConfirm.nombre} descripcion={popUpConfirm.descripcion} valor={popUpConfirm.valor} onClose={limpiarPopUpConfirm}/>}
         </section>
     )
 } export default AgrProductos

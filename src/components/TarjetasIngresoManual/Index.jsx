@@ -22,6 +22,7 @@ function TarjetasIngresoManual(props) {
                     nombre: props.nombre,
                     descripcion: props.descripcion,
                     valor: props.valor,
+                    id: props.id
                 })}
             />
         </div>
