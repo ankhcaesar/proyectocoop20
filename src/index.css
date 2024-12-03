@@ -1,6 +1,5 @@
 :root {
 
-
   /*las variables*/
 
   --ColorPrincipal: #DFAD16;
@@ -14,6 +13,7 @@
 }
 
 body {
+
   background-color: var(--backgroundPrincipal);
   margin: 0px;
   border: 0px;

@@ -1,64 +1,54 @@
 .contenedorFinCompra {
-    width: 95vw;
+    max-width: 100%;
+}
+
+.resumen {
+    width: 92%;
+    height: 65vh;
     margin: 0 auto;
+    padding: 10px;
+}
+
+.listadatos {
+    list-style-type: none;
+    padding: 0;
+    font-size: 18px;
+}
+
+.items span {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.detalle {
+    margin-top: 20px;
+    border-bottom: 2px solid black;
 }
 
 .titulos {
-    width: 100%;
-    height: 5%;
     display: flex;
-    justify-content: space-evenly;
-    text-align: center;
+    justify-content: space-between;
+    padding: 5px 0 2px;
+    font-weight: bold;
+    border-bottom: solid 2px black;
+
+    & p{
+        margin: 0;
+    }
 }
 
-
-
-.producto {
-    width: 30%;
-
-}
-
-.cantidad {
-    width: 10%;
-}
-
-.subtotal {
-    width: 15%;
-}
-
-.total {
-    width: 15%;
-}
-
-
-.registro {
-    width: 100%;
+.articulos .registro {
     display: flex;
-    justify-content: space-around;
-
+    justify-content: space-between;
+    padding-top: 5px;
 }
 
-.nombreArt {
-    width: 30%;
+.articulos p {
+    margin: 0;
 }
-
-.cantArt {
-    width: 10%;
-}
-
-.valorUnitArt {
-    width: 15%;
-}
-
-.valorTotalArt {
-    width: 15%;
-}
-
 
 .botones {
     display: flex;
-    justify-content: center;
-    width: 100vw;
-    margin: 10px 0;
+    justify-content: space-around;
     gap: 5px;
 }

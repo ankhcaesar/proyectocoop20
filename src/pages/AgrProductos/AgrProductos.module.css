@@ -1,7 +1,7 @@
 
 
 .container {
-    width: 95vw;
+    width: 95%;
     height: 82vh;
     margin: 0 auto;
 }
@@ -9,7 +9,7 @@
 .botones {
     display: flex;
     justify-content: center;
-    width: 95vw;
+    width: 95%;
     margin: 10px 0;
     gap: 5px;
 }

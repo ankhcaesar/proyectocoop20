@@ -86,17 +86,30 @@ function GlobalContextProvider({ children }) {
     /** Cerrar sesion */
 
 
-    /**sincroniza datos */
-    useEffect(() => {
-        const sincronizar = async () => {
+ /**sincroniza datos */
+ useEffect(() => {
+    const sincronizar = async () => {
+        try {
             if (authState === "ACTIV") {
                 await syncToSupabase();
                 await syncFromSupabase();
             }
-        };
-        sincronizar();
-    }, [authState]);
-    /**sincroniza datos */
+
+            // Obtener nombre desde IndexedDB (settings)
+            const settings = await db.settings.toArray();
+            if (settings.length > 0) {
+                setNombreyApellido(settings[0].nombre || "nn");
+            } else {
+                setNombreyApellido("nn");
+            }
+        } catch (error) {
+            console.error("Error en la sincronización:", error);
+        }
+    };
+
+    sincronizar();
+}, [authState]); // Dependencias mínimas
+/**sincroniza datos */
 
 
     /** Popup */

@@ -58,7 +58,7 @@ function IngresoManual() {
                         urlImagen={URL.createObjectURL(art.imagen_blob)} 
                         nombre={art.nombre_art} 
                         descripcion={art.descripcion_art} 
-                        valor={formatomoneda(art.valor_unit)} />
+                        valor={art.valor_unit} />
                     ))
                 ) : (
                     <p className={styles.articulo}>No hay artículos disponibles</p>

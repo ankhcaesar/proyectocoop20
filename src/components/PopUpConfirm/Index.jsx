@@ -70,7 +70,7 @@ function PopUpConfirm({ id, from, urlImagen, nombre, descripcion, valor, onClose
                             <h3 className={styles.nombre}>{nombre}</h3>
                             <img className={styles.imagen} src={urlImagen} alt={`Imagen de ${nombre}`} />
                             <p className={styles.descripcion}>Detalle: {descripcion}</p>
-                            <p className={styles.valor}>Valor unitario: ${valor}</p>
+                            <p className={styles.valor}>Valor unitario: {valor}</p>
                         </div>
                         <div className={styles.botton}>
                             <button
