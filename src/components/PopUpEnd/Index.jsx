@@ -1,13 +1,13 @@
 import { useContext } from "react";
 import { GlobalContext } from '../../context/GlobalContext';
-import styles from "./PopUpConfirm.module.css";
+import styles from "./PopUpPopUpEnd.module.css";
 import iconoOk from "/Icons/check_blanco.svg";
 import tachito from "/Icons/tachito_blanco.svg";
 import db from "../../db/db";
-
-function PopUpConfirm({ id, from, urlImagen, nombre, descripcion, valor, onClose }) {
+import InputForm from "../InputForm/Index"
+function PopUpEnd({ from, onClose, data }) {
     const { setPopUp, idVenta, limpiarPopUp } = useContext(GlobalContext);
-    
+    const { medpago0, medpago1, medpago2, totalcompra } = data
 
     const agregarProducto = async () => {
         try {
@@ -69,20 +69,62 @@ function PopUpConfirm({ id, from, urlImagen, nombre, descripcion, valor, onClose
 
     return (
         <>
-            {from === "AGRP" && (
+            {from === "CNFV" && (
                 <div className={styles.overlay}>
                     <div className={styles.PopUpContainer}>
-                        <div className={styles.producto}>
-                            <h3 className={styles.nombre}>{nombre}</h3>
-                            <img className={styles.imagen} src={urlImagen} alt={`Imagen de ${nombre}`} />
-                            <p className={styles.descripcion}>Detalle: {descripcion}</p>
-                            <p className={styles.valor}>Valor unitario: {valor}</p>
+                        <div className={styles.pagos}>
+
+                            <form action="">
+                                <div className={styles.titulo}>
+                                    <label>Efectivo</label>
+                                    <input
+                                        className={styles.inputs}
+                                        name="Efectivo"
+                                        placeholder=""
+                                        value={medpago0}
+                                        type="text"
+                                        required={true}
+                                    />
+                                </div>
+
+                                <div className={styles.titulo}>
+                                    <label>Transferencia</label>
+                                    <input
+                                        className={styles.inputs}
+                                        name="Transferecia"
+                                        placeholder=""
+                                        value={medpago1}
+                                        type="text"
+                                        required={true}
+                                    />
+                                </div>
+                                <div className={styles.titulo}>
+                                    <label>Cta Cte</label>
+                                    <input
+                                        className={styles.inputs}
+                                        name="Cta Cte"
+                                        placeholder=""
+                                        value={medpago2}
+                                        type="text"
+                                        required={true}
+                                    />
+                                </div>
+
+                            </form>
+                            <p>{totalcompra}</p>
+
+
+
+
                         </div>
+
+
+
                         <div className={styles.botton}>
                             <button
                                 className={styles.botonok}
                                 type="button"
-                                onClick={agregarProducto}
+
                             >
                                 <img src={iconoOk} alt="Agregar" />
                             </button>
@@ -102,4 +144,4 @@ function PopUpConfirm({ id, from, urlImagen, nombre, descripcion, valor, onClose
     );
 }
 
-export default PopUpConfirm;
+export default PopUpEnd;

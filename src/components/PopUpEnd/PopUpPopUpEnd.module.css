@@ -9,37 +9,14 @@
     background-color: #25252386;
     display: flex;
     justify-content: center;
-    
+
 }
 
 .PopUpContainer {
     z-index: 98;
     width: 400PX;
-    aspect-ratio: 2/3;
-    position: fixed;    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    transform: translateY(7vh);
-    transition: 2s;
-    color: black;
-    font-size: 15px;
-    font-weight: 600;
-    background-color: var(--backgroundPrincipal);
-    border: 1px solid rgba(165, 165, 165, 0.3);
-    border-radius: 10px;
-    box-shadow: 0px 5px 29px 2px var(--boxshadowboton);
-    padding: 40px 20px;
-}
-
-
-.PopUpContainerch{
-    z-index: 98;
-    width: 400PX;
-
-    position: fixed;    
+    aspect-ratio: 4/3;
+    position: fixed;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,27 +34,33 @@
     padding: 40px 20px;
 }
 
-
-
-.nombre {
-    font-size: 30px;
-    margin: 10px auto;
-    text-align: center;
+.pagos {
+    width: 100%;
+    height: 90%;
+    background-color: azure;
 }
 
-.valor {
-    font-weight: bolder;
-    text-align: right;
-
+form {
+    margin: 0 auto;
+    width: 60%;
+    
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.imagen {
-    height: 250px;
-    aspect-ratio: 4/3;
+.titulo{
+    display: flex;
+    justify-content: space-between;
 }
 
+
+.inputs {
+    width: 80px;
+}
 
 .botton {
+    width: 100%;
     padding: 5px;
     align-self: center;
     display: flex;
@@ -98,7 +81,6 @@
         }
     }
 }
-
 
 .botonok {
     background-color: #13ca2c;

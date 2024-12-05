@@ -127,11 +127,18 @@ function GlobalContextProvider({ children }) {
     /**Popup */
 
     /** popUpConfirm */
-    const [popUpConfirm, setPopUpConfirm] = useState({ id: "", show: false, from: "", urlImagen: "", nombre: "", descripcion: "", valor: "" });
+    const [popUpConfirm, setPopUpConfirm] = useState({ show: false, from: "", data:[]});
     const limpiarPopUpConfirm = () => {
-        setPopUpConfirm({ show: false, from: "", urlImagen: "", nombre: "", descripcion: "", valor: "" });
+        setPopUpConfirm({ show: false, from: "",data:[]});
     };
     /**popUpConfirm */
+
+        /** popUpend */
+        const [popUpEnd, setPopUpEnd] = useState({ show: false, from: "", data:[]});
+        const limpiarPopUpEnd = () => {
+            setPopUpEnd({ show: false, from: "",data:[]});
+        };
+        /**popUpEnd *
 
     /**funcion ir */
     function ir(to) {
@@ -204,6 +211,9 @@ function GlobalContextProvider({ children }) {
 
                 popUpConfirm, setPopUpConfirm,
                 limpiarPopUpConfirm,
+
+                popUpEnd, setPopUpEnd,
+                limpiarPopUpEnd,
 
                 cargador, setCargador,
                 cerrarCargador,

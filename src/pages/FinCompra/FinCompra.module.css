@@ -16,8 +16,8 @@
 }
 
 .items span {
-    font-weight: bold;
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 15px;
 }
 
 .detalle {
@@ -32,10 +32,19 @@
     font-weight: bold;
     border-bottom: solid 2px black;
 
-    & p{
+    & p {
         margin: 0;
     }
 }
+.tituloProducto {
+    width: 40%;
+}
+.tituloValorunit,
+.tituloTotal {
+    text-align: center;
+}
+
+
 
 .articulos .registro {
     display: flex;
@@ -43,9 +52,50 @@
     padding-top: 5px;
 }
 
-.articulos p {
-    margin: 0;
+.registro p {
+    margin: 1px 0;
 }
+
+.registroNombre {
+    width: 45%;
+}
+
+.registroCant,
+.tituloCant {
+    width: 7%;
+}
+
+.registroValorunit,
+.tituloValorunit {
+    width: 22%;
+}
+
+.regitroTotal,
+.tituloTotal {
+    width: 22%;
+}
+
+.registroNombre {
+    overflow: hidden;
+    padding-right: 1px;
+}
+
+
+
+
+.totalcompra {
+
+    margin: 5px;
+    font-size: 20px;
+    text-align: right;
+
+    & span {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+}
+
 
 .botones {
     display: flex;

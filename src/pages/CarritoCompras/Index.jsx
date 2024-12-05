@@ -6,6 +6,7 @@ import { useContext, useEffect, useState } from "react";
 import Botton from "../../components/Botton/Index";
 import { GlobalContext } from "../../context/GlobalContext";
 import TarjetasCarrito from "../../components/TarjetasCarrito/Index";
+import PopUpConfirm from "../../components/PopUpConfirm/Index";
 
 function CarritoCompras() {
   //variables
@@ -59,7 +60,7 @@ function CarritoCompras() {
         // Filtrar nulos y actualizar el estado
         setListaProds(productosConDatos.filter((item) => item !== null));
 
-        
+
 
       } catch (error) {
         console.error("Error al cargar productos:", error);
@@ -91,7 +92,7 @@ function CarritoCompras() {
   };
 
   const totalCompra = listaProds.reduce((acc, prod) => acc + prod.total_valor, 0).toFixed(2);
-  const totalProductos =  listaProds.reduce((acc, prod) => acc + prod.cant, 0)
+  const totalProductos = listaProds.reduce((acc, prod) => acc + prod.cant, 0)
   return (
     <section className={styles.contenedorCarritoCompras}>
       <Header titulo="Carrito de compras" />
@@ -121,14 +122,14 @@ function CarritoCompras() {
           <div className={styles.subTotales}>
             <p>Cantidad de productos: {listaProds.length}</p>
             <p>Total de unidades:{formatomoneda(totalProductos)}
-             </p>
+            </p>
           </div>
           <div className={styles.totalCompra}>
             <p>
               TOTAL COMPRA:{formatomoneda(totalCompra)}
 
 
-              
+
             </p>
           </div>
         </div>

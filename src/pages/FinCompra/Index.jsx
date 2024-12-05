@@ -70,36 +70,34 @@ function FinCompra() {
                         <li className={styles.items}><span>Efectivo: </span> {ventaData ? ventaData.medpago0 : "Cargando..."}</li>
                         <li className={styles.items}><span>Transferencia: </span> {ventaData ? ventaData.medpago1 : "Cargando..."}</li>
                         <li className={styles.items}><span>Cta Cte: </span> {ventaData ? ventaData.medpago2 : "Cargando..."}</li>
-                        <li className={styles.items}><span>Total productos: </span> {listaProds.length}</li>
-                        <li className={styles.items}> <span>Total unidades:</span> {listaProds.reduce((acc, prod) => acc + prod.cant, 0)}</li>
+                        <li className={styles.items}><span>Productos: </span> {listaProds.length}</li>
+                        <li className={styles.items}> <span>Unidades:</span> {listaProds.reduce((acc, prod) => acc + prod.cant, 0)}</li>
 
-                        <li className={styles.items}><span>Total compra:</span>{formatomoneda(totalCompra)}
-                            
-                        
-                        </li>
                     </ul>
                 </div>
                 <div className={styles.detalle}>
                     <div className={styles.titulos}>
-                        <p>Producto</p><p>Cant</p><p>STotal</p><p>Total</p>
+                        <p className={styles.tituloProducto}>Producto</p><p className={styles.tituloCant}>Cant</p><p className={styles.tituloValorunit}>STotal</p><p className={styles.tituloTotal}>Total</p>
                     </div>
 
                     <div className={styles.articulos}>
                         {listaProds.length > 0 ? (
                             listaProds.map((prod) => (
                                 <div key={prod.id_lista_prods} className={styles.registro}>
-
-                                    <p>{prod.nombre}</p>
-                                    <p>{prod.cant}</p>
-                                    <p>{formatomoneda(prod.valor_unit)}</p>
-                                    <p>{formatomoneda(prod.total_valor)}</p>
+                                    <p className={styles.registroNombre}>{prod.nombre}</p>
+                                    <p className={styles.registroCant}>{prod.cant}</p>
+                                    <p className={styles.registroValorunit}>{formatomoneda(prod.valor_unit)}</p>
+                                    <p className={styles.regitroTotal}>{formatomoneda(prod.total_valor)}</p>
                                 </div>
+
                             ))
                         ) : (
                             <p>No se encontraron productos</p>
                         )}
                     </div>
+
                 </div>
+                <p className={styles.totalcompra}><span>TOTAL:</span>{formatomoneda(totalCompra)}</p>
 
             </div>
 
