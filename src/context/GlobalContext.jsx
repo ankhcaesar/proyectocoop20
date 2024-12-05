@@ -212,8 +212,6 @@ function GlobalContextProvider({ children }) {
                 popUpConfirm, setPopUpConfirm,
                 limpiarPopUpConfirm,
 
-                popUpEnd, setPopUpEnd,
-                limpiarPopUpEnd,
 
                 cargador, setCargador,
                 cerrarCargador,

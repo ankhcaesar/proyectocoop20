@@ -4,12 +4,13 @@ import Header from "../../components/Header/Index"
 import styles from "./FinCompra.module.css"
 import { GlobalContext } from "../../context/GlobalContext"
 import db from "../../db/db"
-import PopUpEnd from "../../components/PopUpEnd/Index"
+import PopUpConfirm from "../../components/PopUpConfirm/Index"
+
 
 function FinCompra() {
 
     // Variables
-    const { ir, idVenta, setIdVenta, statusVenta, setStatusVenta, formatomoneda, setPopUp, nombreyApellido, setPopUpEnd, popUpEnd, limpiarPopUpEnd } = useContext(GlobalContext);
+    const { ir, idVenta, setIdVenta, statusVenta, setStatusVenta, formatomoneda, setPopUp, nombreyApellido, popUpConfirm, setPopUpConfirm, limpiarPopUpConfirm, } = useContext(GlobalContext);
     const [listaProds, setListaProds] = useState([]);
     const [ventaData, setVentaData] = useState(null);
 
@@ -58,10 +59,17 @@ function FinCompra() {
 
 
     function manejarConfirmar() {
-        setPopUpEnd(
-            show = true,
-            from = "CNFV"
-        )
+        
+        setPopUpConfirm({
+            show : true,
+            from : "CNFV",
+            data : [{
+                medpago0: ventaData.medpago0 || 0,
+                medpago1: ventaData.medpago1 || 0,
+                medpago2: ventaData.medpago2 || 0,
+                totalcompra: totalCompra
+            }]
+    })
     }
 
     return (
@@ -76,9 +84,9 @@ function FinCompra() {
                         <li className={styles.items}><span>Nombre: </span>{nombreyApellido}</li>
                         <li className={styles.items}><span>Venta nº: </span>{idVenta}</li>
                         <li className={styles.items}><span>Fecha: </span> {ventaData ? ventaData.fecha : "Cargando..."}</li>
-                        <li className={styles.items}><span>Efectivo: </span> {ventaData ? ventaData.medpago0 : "Cargando..."}</li>
-                        <li className={styles.items}><span>Transferencia: </span> {ventaData ? ventaData.medpago1 : "Cargando..."}</li>
-                        <li className={styles.items}><span>Cta Cte: </span> {ventaData ? ventaData.medpago2 : "Cargando..."}</li>
+                        <li className={styles.items}><span>Efectivo: </span> {ventaData ? formatomoneda(ventaData.medpago0) : "Cargando..."}</li>
+                        <li className={styles.items}><span>Transferencia: </span> {ventaData ? formatomoneda(ventaData.medpago1 ): "Cargando..."}</li>
+                        <li className={styles.items}><span>Cta Cte: </span> {ventaData ? formatomoneda(ventaData.medpago2) : "Cargando..."}</li>
                         <li className={styles.items}><span>Productos: </span> {listaProds.length}</li>
                         <li className={styles.items}> <span>Unidades:</span> {listaProds.reduce((acc, prod) => acc + prod.cant, 0)}</li>
 
@@ -114,7 +122,7 @@ function FinCompra() {
                 <Botton mane="Volver" label="VOLVER" type="Button" medida="40%" onClick={() => ir("CarritoCompras")} />
                 <Botton mane="Confirmar" label="CONFIRMAR" type="Button" medida="40%" onClick={manejarConfirmar} />
             </div>
-            {popUpEnd.show && <PopUpEnd from={popUpEnd.from} data={popUpEnd.data} onClose={limpiarPopUpEnd} />}
+            {popUpConfirm.show && <PopUpConfirm from={popUpConfirm.from} data={popUpConfirm.data} onClose={limpiarPopUpConfirm} />}
 
         </section>
     );

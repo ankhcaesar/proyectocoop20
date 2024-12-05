@@ -7,6 +7,7 @@
     border-color: rgba(165, 165, 165, 0.8);
     border-radius: 7px;
     font-size: 15px;
+    font-weight: 500;
     color: rgb(37, 35, 29);
-    box-shadow: 3px 5px 8px 1px var(--boxshadowGral);
+    box-shadow: 3px 3px 8px 1px var(--boxshadowGral);
 }

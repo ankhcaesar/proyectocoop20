@@ -33,32 +33,7 @@
     box-shadow: 0px 5px 29px 2px var(--boxshadowboton);
     padding: 40px 20px;
 }
-
-
-.PopUpContainerch{
-    z-index: 98;
-    width: 400PX;
-
-    position: fixed;    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-    transform: translateY(10vh);
-    transition: 2s;
-    color: black;
-    font-size: 15px;
-    font-weight: 600;
-    background-color: var(--backgroundPrincipal);
-    border: 1px solid rgba(165, 165, 165, 0.3);
-    border-radius: 10px;
-    box-shadow: 0px 5px 29px 2px var(--boxshadowboton);
-    padding: 40px 20px;
-}
-
-
-
+/** from AGRP */
 .nombre {
     font-size: 30px;
     margin: 10px auto;
@@ -76,8 +51,59 @@
     aspect-ratio: 4/3;
 }
 
+/** from CNFV*/
+.PopUpContainerch{
+    z-index: 98;
+    width: 400PX;
+    aspect-ratio: 2/1.5;
+    position: fixed;    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 40px 20px;
+    transform: translateY(20vh);
+    transition: 2s;
+    color: black;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: var(--backgroundPrincipal);
+    border: 1px solid rgba(165, 165, 165, 0.3);
+    border-radius: 10px;
+    box-shadow: 0px 5px 29px 2px var(--boxshadowboton);
+}
+
+
+.form{
+    width: 350px;
+
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
+
+.titulo{
+    display: flex;
+    justify-content: flex-end;
+    
+}
+.inputs{
+    width: 50%;
+}
+
+.totalcompra{
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    margin: 10px 0 ;
+}
 
 .botton {
+    width: 100%;
     padding: 5px;
     align-self: center;
     display: flex;
@@ -94,11 +120,10 @@
         box-shadow: 1px 1px 1px 0.5px #1b1c1d50, inset 2px 3px 8px 1px var(--boxshadowbotoninset);
 
         & img {
-            width: 20px;
+            width: 15px;
         }
     }
 }
-
 
 .botonok {
     background-color: #13ca2c;

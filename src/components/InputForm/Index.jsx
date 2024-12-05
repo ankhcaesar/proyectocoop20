@@ -1,19 +1,21 @@
 import styles from "./InputForm.module.css"
 
 function InputForm(props) {
+    const { placeholder, value, type, required, readOnly, updatevalue, medida } = props
 
     const manejarCambio = (e) => {
-        props.updatevalue(e.target.value)
+        updatevalue(e.target.value)
     }
 
     return (
         <input
+            style={{ width: `${props.medida}` }}
             className={styles.form_text}
-            placeholder={props.placeholder}
-            value={props.value}
-            type={props.type}
-            required={props.required}
-            readOnly={props.readOnly}
+            placeholder={placeholder}
+            value={value}
+            type={type}
+            required={required}
+            readOnly={readOnly}
             onChange={manejarCambio}
         />
     )

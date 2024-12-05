@@ -4,7 +4,7 @@ import TarjetasIngresoManual from "../TarjetasIngresoManual/Index";
 import db from "../../db/db";
 import InputForm from "../InputForm/Index";
 import ListaFiltros from "../ListaFiltros/Index";
-import { GlobalContext } from "../../context/GlobalContext";
+
 
 function IngresoManual() {
     const [arts, setArts] = useState([]);
@@ -13,7 +13,7 @@ function IngresoManual() {
     const [categoriaSeleccionada, setCategoriaSeleccionada] = useState(null);
     const [subcategoriaSeleccionada, setSubcategoriaSeleccionada] = useState(null);
     const [busquedaTexto, setBusquedaTexto] = useState("");
-    const {formatomoneda}=useContext(GlobalContext)
+
 
     useEffect(() => {
         const fetchFiltros = async () => {
@@ -43,7 +43,13 @@ function IngresoManual() {
     return (
         <section className={styles.container}>
             <div className={styles.buscador}>
-                <InputForm placeholder="nombre del producto" type="search" value={busquedaTexto} updatevalue={setBusquedaTexto} />
+                <InputForm 
+                placeholder="nombre del producto" 
+                type="search" 
+                value={busquedaTexto} 
+                updatevalue={setBusquedaTexto}
+                medida="90vw"
+                />
             </div>
             <div className={styles.filtros}>
                 <ListaFiltros items={categorias} selectedItem={categoriaSeleccionada} onSelect={setCategoriaSeleccionada} labelKey="nombre_cat" idKey="id_cat" />
