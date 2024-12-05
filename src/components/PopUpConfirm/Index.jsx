@@ -5,9 +5,9 @@ import iconoOk from "/Icons/check_blanco.svg";
 import tachito from "/Icons/tachito_blanco.svg";
 import db from "../../db/db";
 
-function PopUpConfirm({ id, from, urlImagen, nombre, descripcion, valor, onClose }) {
+function PopUpConfirm({onClose, data, from}) {
     const { setPopUp, idVenta, limpiarPopUp } = useContext(GlobalContext);
-    
+    const { id,  urlImagen, nombre, descripcion, valor } = data[0];
 
     const agregarProducto = async () => {
         try {
@@ -74,7 +74,7 @@ function PopUpConfirm({ id, from, urlImagen, nombre, descripcion, valor, onClose
                     <div className={styles.PopUpContainer}>
                         <div className={styles.producto}>
                             <h3 className={styles.nombre}>{nombre}</h3>
-                            <img className={styles.imagen} src={urlImagen} alt={`Imagen de ${nombre}`} />
+                            <img className={styles.imagen} src={urlImagen} alt={`imagen de ${nombre}`} />
                             <p className={styles.descripcion}>Detalle: {descripcion}</p>
                             <p className={styles.valor}>Valor unitario: {valor}</p>
                         </div>

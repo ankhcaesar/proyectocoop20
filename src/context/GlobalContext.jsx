@@ -86,30 +86,30 @@ function GlobalContextProvider({ children }) {
     /** Cerrar sesion */
 
 
- /**sincroniza datos */
- useEffect(() => {
-    const sincronizar = async () => {
-        try {
-            if (authState === "ACTIV") {
-                await syncToSupabase();
-                await syncFromSupabase();
-            }
+    /**sincroniza datos */
+    useEffect(() => {
+        const sincronizar = async () => {
+            try {
+                if (authState === "ACTIV") {
+                    await syncToSupabase();
+                    await syncFromSupabase();
+                }
 
-            // Obtener nombre desde IndexedDB (settings)
-            const settings = await db.settings.toArray();
-            if (settings.length > 0) {
-                setNombreyApellido(settings[0].nombre || "nn");
-            } else {
-                setNombreyApellido("nn");
+                // Obtener nombre desde IndexedDB (settings)
+                const settings = await db.settings.toArray();
+                if (settings.length > 0) {
+                    setNombreyApellido(settings[0].nombre || "nn");
+                } else {
+                    setNombreyApellido("nn");
+                }
+            } catch (error) {
+                console.error("Error en la sincronización:", error);
             }
-        } catch (error) {
-            console.error("Error en la sincronización:", error);
-        }
-    };
+        };
 
-    sincronizar();
-}, [authState]); // Dependencias mínimas
-/**sincroniza datos */
+        sincronizar();
+    }, [authState]); // Dependencias mínimas
+    /**sincroniza datos */
 
 
     /** Popup */
@@ -127,20 +127,20 @@ function GlobalContextProvider({ children }) {
     /**Popup */
 
     /** popUpConfirm */
-    const [popUpConfirm, setPopUpConfirm] = useState({ show: false, from: "", data:[]});
+    const [popUpConfirm, setPopUpConfirm] = useState({ show: false, from: "", data: [] });
     const limpiarPopUpConfirm = () => {
-        setPopUpConfirm({ show: false, from: "",data:[]});
+        setPopUpConfirm({ show: false, from: "", data: [] });
     };
     /**popUpConfirm */
 
-        /** popUpend */
-        const [popUpEnd, setPopUpEnd] = useState({ show: false, from: "", data:[]});
-        const limpiarPopUpEnd = () => {
-            setPopUpEnd({ show: false, from: "",data:[]});
-        };
-        /**popUpEnd *
+    /** popUpend */
+    const [popUpEnd, setPopUpEnd] = useState({ show: false, from: "", data: [] });
+    const limpiarPopUpEnd = () => {
+        setPopUpEnd({ show: false, from: "", data: [] });
+    };
+    /**popUpEnd *
 
-    /**funcion ir */
+/**funcion ir */
     function ir(to) {
         switch (to) {
             case "CarritoCompras":
@@ -163,7 +163,7 @@ function GlobalContextProvider({ children }) {
                 navigate(`${to}`);
                 break;
 
-                case "FinCompra":
+            case "FinCompra":
                 navigate(`${to}`);
                 break;
 
@@ -176,12 +176,12 @@ function GlobalContextProvider({ children }) {
     /**funcion ir */
 
     /** funcion formato modena */
-    function formatomoneda (valor) {
+    function formatomoneda(valor) {
         return new Intl.NumberFormat("es-AR", {
-          style: "currency",
-          currency: "ARS",
+            style: "currency",
+            currency: "ARS",
         }).format(valor);
-      };
+    };
     /** funcion formato modena */
 
     /** Cargador */

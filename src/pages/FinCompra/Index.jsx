@@ -4,12 +4,12 @@ import Header from "../../components/Header/Index"
 import styles from "./FinCompra.module.css"
 import { GlobalContext } from "../../context/GlobalContext"
 import db from "../../db/db"
-
+import PopUpEnd from "../../components/PopUpEnd/Index"
 
 function FinCompra() {
 
     // Variables
-    const { ir, idVenta, setIdVenta, statusVenta, setStatusVenta, formatomoneda, setPopUp, nombreyApellido } = useContext(GlobalContext);
+    const { ir, idVenta, setIdVenta, statusVenta, setStatusVenta, formatomoneda, setPopUp, nombreyApellido, setPopUpEnd, popUpEnd, limpiarPopUpEnd } = useContext(GlobalContext);
     const [listaProds, setListaProds] = useState([]);
     const [ventaData, setVentaData] = useState(null);
 
@@ -54,6 +54,15 @@ function FinCompra() {
     }, [idVenta]);
     const totalCompra = listaProds.reduce((acc, prod) => acc + prod.total_valor, 0).toFixed(2);
 
+
+
+
+    function manejarConfirmar() {
+        setPopUpEnd(
+            show = true,
+            from = "CNFV"
+        )
+    }
 
     return (
         <section className={styles.contenedorFinCompra}>
@@ -103,8 +112,9 @@ function FinCompra() {
 
             <div className={styles.botones}>
                 <Botton mane="Volver" label="VOLVER" type="Button" medida="40%" onClick={() => ir("CarritoCompras")} />
-                <Botton mane="Confirmar" label="CONFIRMAR" type="Button" medida="40%" />
+                <Botton mane="Confirmar" label="CONFIRMAR" type="Button" medida="40%" onClick={manejarConfirmar} />
             </div>
+            {popUpEnd.show && <PopUpEnd from={popUpEnd.from} data={popUpEnd.data} onClose={limpiarPopUpEnd} />}
 
         </section>
     );

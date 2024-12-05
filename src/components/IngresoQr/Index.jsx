@@ -47,11 +47,14 @@ function IngresoQr() {
                         setPopUpConfirm({
                             show: true,
                             from: "AGRP",
-                            id: producto.id_art,
-                            urlImagen: imagenUrl,
-                            nombre: producto.nombre_art,
-                            descripcion: producto.descripcion_art,
-                            valor: producto.valor_unit,
+                            data:
+                                [{
+                                    urlImagen: imagenUrl,
+                                    nombre: producto.nombre,
+                                    descripcion: producto.descripcion_art,
+                                    valor: producto.valor_unit,
+                                    id: producto.id_art,
+                                }]
                         });
 
                         if (imagenUrl) {
