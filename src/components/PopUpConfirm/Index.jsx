@@ -5,73 +5,17 @@ import iconoOk from "/Icons/check_blanco.svg";
 import tachito from "/Icons/tachito_blanco.svg";
 import db from "../../db/db";
 import InputForm from "../InputForm/Index"
-
+import { agregarHistorial, agregarProducto } from "../../db/indexedhooks"
 function PopUpConfirm({ onClose, data, from }) {
-  const { setPopUp, idVenta, limpiarPopUp } = useContext(GlobalContext);
-  const { id, urlImagen, nombre, descripcion, valor, medpago0, medpago1, medpago2, totalcompra } = data[0];
+  const {
+    ir,
+    setPopUp, limpiarPopUp,
+    idVenta, setIdVenta, setStatusVenta
+  } = useContext(GlobalContext);
+  const { id, urlImagen, nombre, descripcion, valor, medio_pago_0, medio_pago_1, medio_pago_2, totalcompra } = data[0];
 
-
-  const agregarProducto = async () => {
-    try {
-      // Buscar si el producto ya existe en la tabla lista_prods con el mismo id_venta e id_art
-      const productoExistente = await db.lista_prods
-        .where("id_venta")
-        .equals(idVenta)
-        .toArray();
-
-      // Filtrar por id_art para encontrar el producto específico
-      const producto = productoExistente.find(prod => prod.id_art === id);
-
-      if (producto) {
-        // Verificar si id_lista_prods está definido antes de actualizar
-        if (producto.id_lista_prods !== undefined) {
-          const nuevaCant = producto.cant + 1;
-          const nuevoTotalValor = nuevaCant * producto.valor_unit;
-
-          // Actualizar el producto existente
-          await db.lista_prods.update(producto.id_lista_prods, {
-            cant: nuevaCant,
-            total_valor: nuevoTotalValor
-          });
-        } else {
-          console.error("Error: id_lista_prods no está definido");
-        }
-      } else {
-        // Agregar un nuevo producto si no existe
-        const nuevoProducto = {
-          id_venta: idVenta,
-          id_art: id,
-          valor_unit: valor,
-          cant: 1,
-          total_valor: valor
-        };
-
-        await db.lista_prods.add(nuevoProducto);
-      }
-
-      // Mostrar mensaje de éxito en el popup
-      setPopUp({
-        show: true,
-        message: `Producto ${nombre} agregado exitosamente!`,
-        type: "ok",
-        zeIndex: "98",
-        from: "MSJ",
-        duration: "2s"
-      });
-
-      // Cerrar el PopUp después de 2 segundos
-      setTimeout(() => {
-        limpiarPopUp();  // Limpiar el PopUp
-        onClose();       // Cerrar el PopUp
-      }, 2000);
-    } catch (error) {
-      console.error("Error al agregar producto:", error);
-    }
-  };
-
-  
-  const [transferencia, setTransferencia] = useState(medpago1 || "");
-  const [ctaCte, setCtaCte] = useState(medpago2 || "");
+  const [transferencia, setTransferencia] = useState(medio_pago_1 || 0);
+  const [ctaCte, setCtaCte] = useState(medio_pago_2 || 0);
 
   const efectivo = totalcompra - transferencia - ctaCte;
 
@@ -80,9 +24,9 @@ function PopUpConfirm({ onClose, data, from }) {
 
     try {
       await db.ventas.update(idVenta, {
-        medpago0: efectivo,
-        medpago1: transferencia,
-        medpago2: ctaCte,
+        medio_pago_0: efectivo,
+        medio_pago_1: parseInt (transferencia) || 0,
+        medio_pago_2: parseInt(ctaCte) || 0,
       });
       setPopUp({
         show: true,
@@ -96,12 +40,114 @@ function PopUpConfirm({ onClose, data, from }) {
         limpiarPopUp();
         onClose();
       }, "2000");
+      ir("MenuCompras")
     } catch (error) {
       console.error("Error al actualizar la venta:", error);
     }
   };
 
   const sumaValida = efectivo >= 0 && efectivo <= totalcompra;
+
+
+  const manejarTerminarCompra = async () => {
+    try {
+      // Llamar a la función para agregar a historial
+      const resultadoHistorial = await agregarHistorial(idVenta);
+
+      if (!resultadoHistorial.success) {
+        setPopUp({
+          show: true,
+          message: "Error al cerrar la venta. Inténtelo nuevamente.",
+          type: "error",
+          zeIndex: "98",
+          duration: "3s",
+        });
+        return;
+      }
+
+      // Verificar que los datos están en historial
+      const historialVerificado = await db.historial.get(resultadoHistorial.idHistorial);
+
+      if (!historialVerificado) {
+        throw new Error("No se pudo verificar la entrada en historial.");
+      }
+
+
+      await db.ventas.delete(idVenta);
+
+      setIdVenta(null);
+      setStatusVenta(false);
+
+      setPopUp({
+        show: true,
+        message: "Compra finalizada exitosamente.",
+        type: "ok",
+        zeIndex: "98",
+        duration: "2s",
+      });
+      setTimeout(() => {
+        limpiarPopUp();
+      }, 2000);
+
+      // Recuperar datos para WhatsApp
+      const profile = await db.settings.get("profile");
+      const listaProductos = await db.lista_prods.where("id_venta").equals(idVenta).toArray();
+
+      const mensajeWhatsApp = generarMensajeWhatsApp({
+        fecha: historialVerificado.fecha_venta,
+        nombreCliente: profile.nombre,
+        idVenta,
+        mediosPago: [
+          historialVerificado.medio_pago_0,
+          historialVerificado.medio_pago_1,
+          historialVerificado.medio_pago_2,
+        ],
+        totalCompra: historialVerificado.total_valor,
+        totalProductos: listaProductos.reduce((sum, prod) => sum + prod.cant, 0),
+        totalArticulos: listaProductos.length,
+        detalleProductos: listaProductos,
+      });
+
+      // Abrir enlace de WhatsApp
+      window.open(`https://wa.me/${profile.user_id}?text=${encodeURIComponent(mensajeWhatsApp)}`, "_blank");
+    } catch (error) {
+      console.error("Error en el flujo de cierre de compra:", error);
+      setPopUp({
+        show: true,
+        message: "Ocurrió un error al cerrar la venta.",
+        type: "error",
+        zeIndex: "98",
+        duration: "2s",
+      });
+      setTimeout(() => {
+        limpiarPopUp();
+      }, 2000);
+    }
+  };
+
+  // Generar mensaje para WhatsApp
+  function generarMensajeWhatsApp({ fecha, nombreCliente, idVenta, mediosPago, totalCompra, totalProductos, totalArticulos, detalleProductos }) {
+    let mensaje = `¡Hola! Detalles de la compra:\n\n`;
+    mensaje += `Fecha: ${fecha}\n`;
+    mensaje += `Cliente: ${nombreCliente}\n`;
+    mensaje += `ID de Venta: ${idVenta}\n`;
+    mensaje += `Medios de Pago: \n`;
+    mensaje += `  - Efectivo: $${mediosPago[0] || 0}\n`;
+    mensaje += `  - Transferencia: $${mediosPago[1] || 0}\n`;
+    mensaje += `  - Cta. Cte.: $${mediosPago[2] || 0}\n`;
+    mensaje += `Total Compra: $${totalCompra}\n`;
+    mensaje += `Total Productos: ${totalProductos}\n`;
+    mensaje += `Total Artículos: ${totalArticulos}\n\n`;
+    mensaje += `Detalle de Productos:\n`;
+
+    detalleProductos.forEach((prod, index) => {
+      mensaje += `  ${index + 1}. ${prod.nombre_art} - ${prod.cant} x $${prod.valor_unit} = $${prod.total_valor}\n`;
+    });
+
+    return mensaje;
+  }
+
+
 
   return (
     <>
@@ -118,7 +164,8 @@ function PopUpConfirm({ onClose, data, from }) {
               <button
                 className={styles.botonok}
                 type="button"
-                onClick={agregarProducto}
+                onClick={() => agregarProducto(
+                  idVenta, nombre, id, valor, setPopUp, limpiarPopUp, onClose)}
               >
                 <img src={iconoOk} alt="Agregar" />
               </button>
@@ -200,8 +247,47 @@ function PopUpConfirm({ onClose, data, from }) {
           </div>
         </div>
       )}
+
+      {from === "TERM" && (
+        <div className={styles.overlay}>
+          <div className={styles.PopUpContainerch}>
+
+            <div className={styles.pagos}>
+              <h2>Cierre de la compra</h2>
+              <p>Cliente: {nombre}</p>
+
+
+              <p>Cantidad de productos: </p>
+              <p>Cantidad de articulos: </p>
+              <p>Efectivo: {efectivo}</p>
+              <p>Transferencia: {transferencia}</p>
+              <p>Cta cte: {ctaCte}</p>
+              <p className={styles.totalcompra}>TOTAL: $ {totalcompra}</p>
+            </div>
+
+            <div className={styles.botton}>
+              <button
+                className={styles.botonok}
+                name="Terminarcompra"
+                type="button"
+                onClick={manejarTerminarCompra}
+              >
+                <img src={iconoOk} alt="Terminar Compra" />
+              </button>
+              <button
+                className={styles.botoncerrar}
+                type="button"
+                onClick={onClose}
+              >
+                <img src={tachito} alt="Cancelar" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
 
-export default PopUpConfirm;
+
+export default PopUpConfirm;  

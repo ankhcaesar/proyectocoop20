@@ -10,9 +10,10 @@ function GlobalContextProvider({ children }) {
 
 
     /**Variables */
-    const [email, setEmail] = useState("")
     const thisUrl = "http://localhost:5173"
+    const [email, setEmail] = useState("")
     const [nombreyApellido, setNombreyApellido] = useState("")
+    const [whatsapp, setWhatsapp]= useState("")
     const { authState, setAuthState } = useAuthStatus();
     const navigate = useNavigate()
     /**Variables */
@@ -217,6 +218,7 @@ function GlobalContextProvider({ children }) {
                 cerrarCargador,
 
                 email, setEmail,
+                whatsapp, setWhatsapp,
                 nombreyApellido, setNombreyApellido,
 
                 limpiarInput,

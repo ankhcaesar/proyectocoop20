@@ -121,7 +121,7 @@ function CarritoCompras() {
         <div className={styles.containertTotales}>
           <div className={styles.subTotales}>
             <p>Cantidad de productos: {listaProds.length}</p>
-            <p>Total de unidades:{formatomoneda(totalProductos)}
+            <p>Total de unidades ({totalProductos})
             </p>
           </div>
           <div className={styles.totalCompra}>
@@ -144,7 +144,7 @@ function CarritoCompras() {
         />
         <Botton
           mane="Finalizar"
-          label="FINALIZAR"
+          label="TERMINAR"
           type="Button"
           medida="40%"
           onClick={() => ir("FinCompra")}

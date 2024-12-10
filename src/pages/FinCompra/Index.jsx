@@ -12,7 +12,7 @@ function FinCompra() {
     // Variables
     const { ir, idVenta, setIdVenta, statusVenta, setStatusVenta, formatomoneda, setPopUp, nombreyApellido, popUpConfirm, setPopUpConfirm, limpiarPopUpConfirm, } = useContext(GlobalContext);
     const [listaProds, setListaProds] = useState([]);
-    const [ventaData, setVentaData] = useState(null);
+    const [ventaData, setVentaData] = useState(0);
 
     useEffect(() => {
         const cargarDatos = async () => {
@@ -53,23 +53,37 @@ function FinCompra() {
 
         cargarDatos();
     }, [idVenta]);
+    
     const totalCompra = listaProds.reduce((acc, prod) => acc + prod.total_valor, 0).toFixed(2);
 
 
+    function manejoFinCompra() {
+        setPopUpConfirm({
+            show: true,
+            from: "TERM",
+            data: [{
+                medio_pago_0: ventaData.medio_pago_0 || 0,
+                medio_pago_1: ventaData.medio_pago_1 || 0,
+                medio_pago_2: ventaData.medio_pago_2 || 0,
+                totalcompra: totalCompra,
+                idVta:idVenta
+            }]
+        })
+    }
 
 
     function manejarConfirmar() {
-        
+
         setPopUpConfirm({
-            show : true,
-            from : "CNFV",
-            data : [{
-                medpago0: ventaData.medpago0 || 0,
-                medpago1: ventaData.medpago1 || 0,
-                medpago2: ventaData.medpago2 || 0,
+            show: true,
+            from: "CNFV",
+            data: [{
+                medio_pago_0: ventaData.medio_pago_0 || 0,
+                medio_pago_1: ventaData.medio_pago_1 || 0,
+                medio_pago_2: ventaData.medio_pago_2 || 0,
                 totalcompra: totalCompra
             }]
-    })
+        })
     }
 
     return (
@@ -84,9 +98,9 @@ function FinCompra() {
                         <li className={styles.items}><span>Nombre: </span>{nombreyApellido}</li>
                         <li className={styles.items}><span>Venta nº: </span>{idVenta}</li>
                         <li className={styles.items}><span>Fecha: </span> {ventaData ? ventaData.fecha : "Cargando..."}</li>
-                        <li className={styles.items}><span>Efectivo: </span> {ventaData ? formatomoneda(ventaData.medpago0) : "Cargando..."}</li>
-                        <li className={styles.items}><span>Transferencia: </span> {ventaData ? formatomoneda(ventaData.medpago1 ): "Cargando..."}</li>
-                        <li className={styles.items}><span>Cta Cte: </span> {ventaData ? formatomoneda(ventaData.medpago2) : "Cargando..."}</li>
+                        <li className={styles.items}><span>Efectivo: </span> {ventaData ? formatomoneda(ventaData.medio_pago_0) : "Cargando..."}</li>
+                        <li className={styles.items}><span>Transferencia: </span> {ventaData ? formatomoneda(ventaData.medio_pago_1) : "Cargando..."}</li>
+                        <li className={styles.items}><span>Cta Cte: </span> {ventaData ? formatomoneda(ventaData.medio_pago_2) : "Cargando..."}</li>
                         <li className={styles.items}><span>Productos: </span> {listaProds.length}</li>
                         <li className={styles.items}> <span>Unidades:</span> {listaProds.reduce((acc, prod) => acc + prod.cant, 0)}</li>
 
@@ -119,8 +133,8 @@ function FinCompra() {
             </div>
 
             <div className={styles.botones}>
-                <Botton mane="Volver" label="VOLVER" type="Button" medida="40%" onClick={() => ir("CarritoCompras")} />
-                <Botton mane="Confirmar" label="CONFIRMAR" type="Button" medida="40%" onClick={manejarConfirmar} />
+                <Botton mane="Pagos" label="PAGO" type="Button" medida="40%" onClick={manejarConfirmar} />
+                <Botton mane="FinCompra" label="TERMINAR" type="Button" medida="40%" onClick={manejoFinCompra} />
             </div>
             {popUpConfirm.show && <PopUpConfirm from={popUpConfirm.from} data={popUpConfirm.data} onClose={limpiarPopUpConfirm} />}
 

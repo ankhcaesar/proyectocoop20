@@ -46,7 +46,7 @@ function Historial() {
                             <div key={item.id_historial} className={styles.registro}>
                                 <div><p>{item.cod_compra}</p></div>
                                 <div><p>{new Date(item.fecha).toLocaleDateString()}</p></div>
-                                <div><p>${formatomoneda(item.total.toFixed(2))}</p></div>
+                                {/*<div><p>${formatomoneda(item.total.toFixed(2))}</p></div> */}
                             </div>
                         ))
                     ) : (

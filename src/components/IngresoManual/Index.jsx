@@ -48,7 +48,7 @@ function IngresoManual() {
                 type="search" 
                 value={busquedaTexto} 
                 updatevalue={setBusquedaTexto}
-                medida="90vw"
+                medida="450px"
                 />
             </div>
             <div className={styles.filtros}>

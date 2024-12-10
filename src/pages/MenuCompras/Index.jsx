@@ -23,9 +23,9 @@ function MenuCompras() {
                         id_profile: userId,
                         id_lista_prods: "",
                         total_valor: 0,
-                        medio_pago_0: "",
-                        medio_pago_1: "",
-                        medio_pago_2: "",
+                        medio_pago_0: 0,
+                        medio_pago_1: 0,
+                        medio_pago_2: 0,
                         estado: "abierto",
                     };
 

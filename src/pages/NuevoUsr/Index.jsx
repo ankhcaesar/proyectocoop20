@@ -14,10 +14,9 @@ function NuevoUsr() {
         limpiarPopUp,
         setCargador,
         ir,
-        email,
-        setEmail,
-        nombreyApellido,
-        setNombreyApellido
+        email, setEmail,
+        whatsapp, setWhatsapp,
+        nombreyApellido, setNombreyApellido
     } = useContext(GlobalContext);
 
     const [curso, setCurso] = useState("");
@@ -71,7 +70,8 @@ function NuevoUsr() {
                         user_id: userId,
                         nombreyapellido: nombreyApellido,
                         curso: curso,
-                        email: email
+                        email: email,
+                        whatsApp: whatsapp
                     }]);
 
                 if (error) {
@@ -153,6 +153,17 @@ function NuevoUsr() {
                         opciones={cursosDisponibles}
                         required={true}
                     />
+
+                    <label>WhastsApp</label>
+                    <InputForm
+                        name="WhatsApp"
+                        placeholder="Ingresa tu whatsapp"
+                        type="number"
+                        value={whatsapp }
+                        updatevalue={setWhatsapp}
+                        required={true}
+                    />
+
                     <div className={styles.boton}>
                         <Botton
                             name="botonEnvio"
